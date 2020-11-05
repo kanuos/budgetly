@@ -1,8 +1,12 @@
 :root {
-    --primary-dark : #0c090d;
-    --primary-dark-hover : #201922;
-    --primary-light: #faf2f2;
-    --primary-light-hover: #bbbbbb;
+    --income : rgb(40, 185, 181);
+    --expense : rgb(255, 80, 73); 
+    --income-light : rgba(40, 185, 181, .7);
+    --expense-light : rgba(255, 80, 73, .7); 
+    --primary-dark : rgb(12, 9, 13);
+    --primary-dark-hover : rgb(32, 25, 34);
+    --primary-light: rgb(250, 242, 242);
+    --primary-light-hover: rgb(187, 187, 187);
     --whtite-opaque-tint : 
         linear-gradient(35deg, rgba(255,255,255,.75), rgba(255,255,255,.65));
 }
