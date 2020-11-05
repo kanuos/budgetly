@@ -1,0 +1,38 @@
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.footer-text {
+    text-transform: capitalize;
+    color: var(--primary-light-hover);
+}
+strong.footer-text {
+    font-size: 1.25em;
+}
+span.footer-text {
+    font-size: 1em;
+}
+.footer-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin-top: 1em;
+}
+.footer-list-item {
+    margin: 0 .5em;
+}
+.footer-list-item > * > img {
+    display: block;
+    height: 2.25rem;
+    width: 2.25rem;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+.footer-list-item > * > img:hover {
+    transform: translateY(-2px) scale(1.05);
+    filter: invert(100%);
+}

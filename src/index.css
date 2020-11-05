@@ -1,5 +1,6 @@
 :root {
     --primary-dark : #0c090d;
+    --primary-dark-hover : #201922;
     --primary-light: #faf2f2;
     --primary-light-hover: #bbbbbb;
     --whtite-opaque-tint : 
@@ -18,20 +19,21 @@
 }
 html, body, #root{
     height: 100%;
+    overflow: hidden;
 }
 html {
     font-size: 62.5%;
     scroll-behavior: smooth;
 }
-.web-only {
+.web-only, .web-only > * {
     display: none;
 }
 
 @media (min-width: 800px) {
-    .mobile-only {
+    .mobile-only, .mobile-only > * {
         display: none;
     }
-    .web-only {
+    .web-only, .web-only > *{
         display: flex;
     }
 }

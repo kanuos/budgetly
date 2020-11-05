@@ -50,3 +50,9 @@ nav {
 .navbar-link:hover::after, .active-link::after {
     transform: scale(1);
 }
+
+@media (min-width: 800px) {
+    .navbar-brand {
+        font-size: 3rem;
+    }
+}
