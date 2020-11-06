@@ -1,0 +1,209 @@
+.ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--dark-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .4s ease;
+}
+.ui-show {
+    transform: scale(1);
+}
+.ui-hide {
+    transform: scale(0);
+}
+.ui > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: .5rem;
+    box-shadow: 0 1px 1rem var(--primary-dark);
+    min-height: 60vh;
+    width: 70vw;
+    max-width: 60rem;
+    background-color: var(--primary-light);
+    position: relative;
+    padding: 2rem;
+}
+.ui > form > .navbar-brand {
+    /* color: transparent; */
+    /* background-clip: text; */
+    /* background-image: linear-gradient(35deg, var(--expense) 50%, var(--income) 50%); */
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}
+.ui > form > h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.form-group {
+    height: 70%;
+    width: 90%;
+    margin: 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+.close-ui {
+    position: absolute;
+    top: 3vh;
+    right: 3vw;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--primary-light-hover);
+    transition: all .4s ease;
+}
+.close-ui:hover {
+    color: var(--expense);
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: .5rem auto;
+}
+.input-group--flex {
+    margin: .25rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.input-group > label {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: var(--dark-tint);
+    margin: .5rem 0;
+}
+.input-group--flex  {
+    display: flex;
+    width: 90%;
+    margin: .5rem auto;
+    justify-content: center;
+}
+.input-group--flex > label {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    position: relative;
+    display: block;
+    padding-left: 1rem;
+    cursor: pointer;
+}
+.input-group--flex:nth-child(odd) {
+    color: var(--income);
+}
+.input-group--flex:nth-child(even) {
+    color: var(--expense);
+}
+.input-group--flex > label::before,
+.input-group--flex > label::after {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    content: '';
+    clip-path: circle();
+}
+.input-group--flex > label::before {
+    height: 1.75rem;
+    width: 1.75rem;
+    background: var(--income);
+}
+.input-group--flex > label::after {
+    height: 1.25rem;
+    width: 1.25rem;
+    background: var(--primary-light);
+}
+
+.input-group--flex:nth-child(2) > label::before {
+    background: var(--expense);
+}
+
+.input-group--flex:nth-child(odd) > input:checked + label::after {
+    background: var(--income-light);
+}
+.input-group--flex:nth-child(even) > input:checked + label::after {
+    background: var(--expense-light);
+}
+
+
+.input-group--flex > input {
+    display: none;
+}
+.input-group > input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    display: block;
+    margin: auto;
+    max-width: 35rem;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-light-hover);
+}
+.input-group:nth-child(4) > input {
+    max-width: 14rem;
+    cursor: pointer;
+}
+.input-group > input:focus {
+    border-bottom: 2px solid var(--income);
+}
+.input-group > input.error-true {
+    border-bottom: 2px solid var(--expense);
+}
+.input-group > .form-error {
+    font-weight: bold;
+    color: var(--expense);
+    margin: .5rem 0;
+    font-size: 1.25rem;
+}
+
+.input-group > textarea, .input-group > textarea > * {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    resize: none;
+    height: 10rem;
+    cursor: text;
+    padding: .5rem;
+    outline: none;
+    border: 2px solid var(--primary-light-hover);
+    border-radius: .5rem;
+}
+
+.input-group > textarea:focus {
+    border: 2px solid var(--income);
+}
+
+.add-btn, .add-btn:link, .add-btn:visited {
+    background: var(--primary-dark);
+    border: none;
+    width: max-content;
+    outline: none;
+    margin: 1.5rem auto;
+    letter-spacing: .2rem;
+    padding: 1rem 2.25rem;
+    color: var(--primary-light-hover);
+    text-transform: uppercase;
+    transition: all .4s ease;
+}
+.add-btn:hover {
+    background: var(--primary-dark-hover);
+    color: var(--primary-light);
+    box-shadow: 0 1px 1rem var(--primary-dark-hover);
+}

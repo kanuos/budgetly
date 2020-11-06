@@ -27,9 +27,10 @@ export const validateDateString = date => {
 export const getCustomTimeObject = dateStr => {
     if (validateDateString(dateStr)){
         const date = new Date(dateStr);
+        const months = ['jan', 'feb', 'mar', 'apr', 'may','jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
         return {
             stamp : date.getTime(),
-            month : date.getUTCMonth(),
+            month : months[date.getUTCMonth()],
             year : date.getUTCFullYear()
         }
     }
