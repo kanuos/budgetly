@@ -27,12 +27,20 @@ export const validateDateString = date => {
 export const getCustomTimeObject = dateStr => {
     if (validateDateString(dateStr)){
         const date = new Date(dateStr);
-        const months = ['jan', 'feb', 'mar', 'apr', 'may','jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
         return {
             stamp : date.getTime(),
-            month : months[date.getUTCMonth()],
+            month : getCurrentMonth(date.getUTCMonth()),
             year : date.getUTCFullYear()
         }
     }
     return null;
+}
+
+export const getCurrentMonth = (month=new Date().getMonth()) => {
+    const months = ['jan', 'feb', 'mar', 'apr', 'may','jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    return months[month]
+}
+
+export const getCurrentYear = (day=Date.now()) => {
+    return new Date(day).getFullYear();
 }

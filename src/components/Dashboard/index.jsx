@@ -7,6 +7,7 @@ import profile from '../../assets/face.svg';
 import exit from '../../assets/exit.svg';
 import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
+import {getCurrentMonth, getCurrentYear} from '../../utils'
 
 const Dashboard = () => {
     return (
@@ -21,7 +22,7 @@ const Dashboard = () => {
                         className="aside-link-icon" 
                         src={profile} 
                         alt="profile"/>
-                        profile
+                        {getCurrentMonth()} {getCurrentYear()}
                     </a>
                 </li>
                 <li>
