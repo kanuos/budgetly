@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
 import Brand from '../Nav/brand';
@@ -7,59 +7,93 @@ import profile from '../../assets/face.svg';
 import exit from '../../assets/exit.svg';
 import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
+import register from '../../assets/add.svg';
 import {getCurrentMonth, getCurrentYear} from '../../utils'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+    // const {tab, getTab} = props;
+    let temp = Date.now() %2 === 0;
+    const [currentTab, setTab] = useState(1);
+
+    const tabs = [
+        "",
+        "the ui for CRUD and list", 
+        "history journals with two views : <Month, List>",
+        "investment calculator",
+        "sign out using router"
+    ]
+
     return (
         <div className="dashboard-wrapper">
-        <Nav />
+        <Nav 
+        />
         <aside className="web-only aside-nav">
             <Brand />
-            <ul className="aside-link-list">
+            {temp && <ul className="aside-link-list">
                 <li>
-                    <a href="#">
+                    <button onClick={() => setTab(1)}>
                     <img
                         className="aside-link-icon" 
                         src={profile} 
                         alt="profile"/>
                         {getCurrentMonth()} {getCurrentYear()}
-                    </a>
+                    </button>
                 </li>
                 <li>
-                    <a href="#">
+                    <button onClick={() => setTab(2)}>
                     <img
                         className="aside-link-icon" 
                         src={stats} 
                         alt="history"/>
                         history
-                    </a>
+                    </button>
                 </li>
                 <li>
-                    <a href="#">
+                    <button onClick={() => setTab(3)}>
                     <img
                         className="aside-link-icon" 
                         src={calculate} 
                         alt="calculator"/>
                         calculator
-                    </a>
+                    </button>
                 </li>
                 <li>
-                    <a href="#">
+                    <button onClick={() => setTab(4)}>
                     <img
                         className="aside-link-icon" 
                         src={exit} 
                         alt="sign out"/>
                         sign out
-                    </a>
+                    </button>
                 </li>
-            </ul>
+            </ul>}
+            {!temp && <ul className="aside-link-list">
+                <li>
+                    <button onClick={() => setTab(1)}>
+                    <img
+                        className="aside-link-icon" 
+                        src={exit} 
+                        alt="sign in"/>
+                        sign in
+                    </button>
+                </li>
+                <li>
+                    <button onClick={() => setTab(2)}>
+                    <img
+                        className="aside-link-icon" 
+                        src={register} 
+                        alt="register"/>
+                        register
+                    </button>
+                </li>
+            </ul>}
             <footer className="aside-footer">
                 <FooterContent />
             </footer>
         </aside>
         <main>
             <div className="container">
-                lorem5000
+                Tab selected = {tabs[currentTab]}
             </div>
         </main>
         </div>

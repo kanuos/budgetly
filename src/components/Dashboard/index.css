@@ -87,11 +87,15 @@
     .aside-link-list > li > *{
         display: flex;
         align-items: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
         justify-content: center;
         padding: 1rem 0;
         position: relative;
         width: 100%;
         z-index: 1;
+        outline: none;
         font-size: 1.75rem;
         text-decoration: none;
         color: var(--primary-light-hover);

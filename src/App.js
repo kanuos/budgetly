@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import Demo from './components/Demo'
+import Dashboard from './components/Dashboard'
 
 function App() {
-  const [ui, setUi] = useState(true)
+  const [tab, setTab] = useState(1)
   return (
     <>
-      <Demo />        
+    <Dashboard getTaab={setTab} tab={tab} />
+      {/* <Demo />         */}
     </>
   );
 }
