@@ -1,9 +1,11 @@
 import React from 'react'
+import FooterContent from './content'
+import './index.css'
 
 const Footer = () => {
     return (
         <footer>
-            Photo by Simon Matzinger from Pexels
+            <FooterContent />
         </footer>
     )
 }

@@ -44,3 +44,15 @@ export const getCurrentMonth = (month=new Date().getMonth()) => {
 export const getCurrentYear = (day=Date.now()) => {
     return new Date(day).getFullYear();
 }
+
+export const createObjectFromArray = (array) => {
+    const obj = {};
+    array.forEach(el => obj[el] = "")
+    return obj;
+}
+
+export const isValidEmail = emailStr => {
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailStr.match(regex);
+
+}
