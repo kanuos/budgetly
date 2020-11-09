@@ -25,6 +25,7 @@
 html, body, #root{
     height: 100%;
     overflow: hidden;
+    min-width: 260px;
 }
 html {
     font-size: 62.5%;

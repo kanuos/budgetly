@@ -6,6 +6,8 @@
     background-position: center;
     padding: 2rem;
     position: relative;
+    z-index: 1;
+    background-color: var(--primary-dark-hover);
 }
 .landing-header::before {
     position: absolute;
@@ -14,7 +16,7 @@
     height: 100%;
     width: 100%;
     content: '';
-    z-index: -1;
+    z-index: -5;
     transition: all .5s ease;
     background-image: linear-gradient(90deg, var(--income), var(--expense));
     animation: bgChange 5s linear infinite;
@@ -46,15 +48,16 @@
 .header-form-box {
     width: 80%;
     z-index: 5;
-    max-width: 40rem;
+    max-width: 35rem;
     margin: auto;
     background-color: var(--primary-light);
     padding: 2rem;
     border-radius: .5rem;
-    height: 50vh;
-    position: relative;
-    top: 40%;
-    transform: translateY(-50%);    
+    min-height: 50vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
     box-shadow: 0 1px 1rem var(--primary-dark-hover);
 }
 
@@ -62,6 +65,7 @@
 
 /* ACCOUNT FORM SECTiON */
 .form-group {
+    z-index: 5;
     margin: 2em auto;
     display: flex;
     flex-direction: column;
@@ -80,6 +84,7 @@
     text-transform: capitalize;
 }
 .form-input {
+    cursor: text;
     border: none;
     cursor: text;
     border-bottom: 1.5px solid var(--primary-light-hover);
@@ -152,18 +157,19 @@
     font-weight: bold;
     cursor: pointer;
 }
-.form-btn-box > button:hover,
-.form-btn-box > button:focus {
+.form-btn-box > button:hover{
     color: var(--primary-dark);
     background: var(--primary-light-hover);
 }
+.form-error {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--expense);
+    text-transform: capitalize;
+}
 @media (min-width: 800px) {
-    .landing-header {
-        z-index: -2;
-        background-color: var(--primary-dark-hover);
-    }
     .landing-header::before {
-        clip-path: polygon(0 0, 100% 0, 100% 60%, 0 90%);
+        clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
         background-image: linear-gradient(90deg, var(--income-light), var(--expense-light))
         , url(../../assets/hero.jpg);
         background-position: center;
@@ -173,8 +179,14 @@
     }
     .header-form-box {
         height: 60vh;
-        position: absolute;
-        top: 50%;
-        right: 10%;
+        left: 60%;
+        transform: translate(-50%,-50%);
+    }
+}
+
+@media (min-width: 950px) {
+    .header-form-box {
+        left: 75%;
+        transform: translate(-50%,-50%);
     }
 }

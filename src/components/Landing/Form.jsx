@@ -54,7 +54,7 @@ const Form = (props) => {
             <header className="form-header">
                 <Brand />
                 <h2 className="form-title">{title}</h2>
-                <strong>
+                <strong className="form-error">
                     {formError}
                 </strong>
             </header>
