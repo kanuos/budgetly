@@ -1,11 +1,14 @@
 // import { useState } from 'react';
-import Landing from './components/Landing';
+// import Landing from './components/Landing';
+
+const { default: Dashboard } = require("./components/Dashboard");
 
 function App() {
   // const [tab, setTab] = useState(1)
   return (
     <>
-      <Landing />
+    <Dashboard />
+      {/* <Landing /> */}
     </>
   );
 }

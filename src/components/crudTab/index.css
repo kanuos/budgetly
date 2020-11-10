@@ -1,3 +1,162 @@
 .crud-box {
     height: 100%;
+    position: relative;
+}
+.crud-header {
+    height: 40%;
+    background-image: linear-gradient(35deg, var(--dark-tint), var(--income-light)),
+    url(../../assets/hero.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: hoverBg 3s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes hoverBg{
+    0% {
+        background-size: 100%;
+    }
+    70% {
+        background-size: 300%;
+    }
+    100% {
+        background-size: 100%;
+    }
+}
+.crud-title {
+    font-size: 3rem;
+    color: var(--primary-light);
+    text-shadow: 1px 1px var(--income), 2px 2px var(--primary-dark);
+    text-transform: capitalize;
+    font-family: 'Righteous', cursive;
+}
+.budget-list {
+    list-style: none;
+    width: max-content;
+    margin: 2rem auto;
+}
+.budget-li {
+    display: flex;
+    padding: .75rem 1rem;
+    justify-content: space-between;
+    color: var(--primary-light);
+    margin: .5rem;
+    border-radius: .25rem;
+    cursor: default;
+    text-transform: capitalize;
+    transition: all .5s ease;
+}
+.final-li {
+    color: var(--primary-dark-hover);
+    background: var(--primary-light);
+    font-weight: 400;
+}
+.income-li {
+    background: var(--income);
+}
+.expense-li {
+    background: var(--expense);
+}
+.budget-li > span {
+    font-size: 1.75rem;
+    backface-visibility: hidden;
+}
+.budget-li-key {
+    padding-right: 5rem;
+}
+.budget-li-value {
+    padding-left: 5rem;
+}
+.budget-list:hover > .budget-li:hover {
+    transform: scale(1.02);
+    filter: opacity(1);
+}
+.budget-list:hover > .budget-li:not(:hover) {
+    transform: scale(.98);
+    filter: opacity(.5);
+}
+.add-task-btn {
+    right: 3vw;
+    bottom: 2vh;
+    padding: .5rem 2rem;
+    transition: all .5s ease;
+    box-shadow: 0 1px 1rem var(--primary-dark-hover);
+    outline: none;
+    border: none;
+    position: absolute;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 2.5rem;
+    backface-visibility: hidden;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+.add-task-btn:hover {
+    color: var(--income);
+    background-color: var(--primary-dark);
+}
+.crud-data-box {
+    padding: 1rem 0;
+    height: 60%;
+    width: 100%;
+    max-width: 90rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+.crud-article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 50%;
+}
+.crud-article:first-child {
+    border-right: 1px solid var(--primary-light-hover);
+}
+.crud-article > legend {
+    font-size: 2rem;
+    text-transform: capitalize;
+}
+.legend-income {
+    color: var(--income);
+}
+.legend-expense {
+    color: var(--expense);
+}
+
+@media (min-width:800px) {
+    .add-task-btn {
+        right: 15vw;
+        top: 30%;
+        bottom: auto;
+        background: var(--primary-dark);
+        color: var(--primary-light);
+        font-size: 3rem;
+    }
+    .add-task-btn:hover {
+        background: var(--primary-light);
+        color: var(--expense);
+    }
+    .crud-title {
+        font-size: 3.5rem;
+    }
+    .budget-li {
+        margin: .75rem 1.5rem;
+    }
+    .budget-li > span {
+        font-size: 1.75rem;
+    }
+    .budget-li-key {
+        padding-right: 6rem;
+    }
+    .budget-li-value {
+        padding-left: 6rem;
+    }
 }

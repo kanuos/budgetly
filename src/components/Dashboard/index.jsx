@@ -9,6 +9,7 @@ import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import register from '../../assets/add.svg';
 import {getCurrentMonth, getCurrentYear} from '../../utils'
+import CrudTab from '../crudTab';
 
 const Dashboard = (props) => {
     // const {tab, getTab} = props;
@@ -93,7 +94,8 @@ const Dashboard = (props) => {
         </aside>
         <main>
             <div className="container">
-                Tab selected = {tabs[currentTab]}
+                {currentTab === 1 && <CrudTab />}
+                {currentTab !== 1 && <>Tab selected = {tabs[currentTab]} </>}
             </div>
         </main>
         </div>
