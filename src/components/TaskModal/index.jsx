@@ -3,11 +3,11 @@ import Brand from '../Nav/brand'
 import './index.css';
 import {today, validMinimumLength, getCustomTimeObject} from '../../utils'
 
-const TaskUI = ({show=false, toggle}) => {
-    const [type, setType] = useState("");
-    const [amount, setAmount] = useState("");
-    const [date, setDate] = useState(today.toString());
-    const [desc, setDesc] = useState("");
+const TaskUI = ({show=false, toggle, getData, initialData}) => {
+    const [type, setType] = useState(initialData ? initialData.type : "");
+    const [amount, setAmount] = useState(initialData ? initialData.amount : "");
+    const [date, setDate] = useState(initialData ? initialData.date : today.toString());
+    const [desc, setDesc] = useState(initialData ? initialData.desc : "");
     const [typeErr, setTypeErr] = useState("");
     const [amountErr, setAmountErr] = useState("");
     const [dateErr, setDateErr] = useState("");
@@ -17,7 +17,6 @@ const TaskUI = ({show=false, toggle}) => {
         try {
             e.preventDefault();
             if (!["inc", "exp"].includes(type)){
-                console.log(type);
                 setTypeErr("Transaction type not selected")
                 return
             }
@@ -32,15 +31,19 @@ const TaskUI = ({show=false, toggle}) => {
             else {
                 const dateObj = getCustomTimeObject(date);
                 if(dateObj){
-                    console.log(dateObj);
-                    console.log({
+                    getData({
                         type, date : dateObj, amount, desc
                     })
+                    toggle()
+                    setType("")
+                    setAmount("")
+                    setDesc("")
+                    setDate(today.toString())
                 }
             }
         }
         catch(err) {
-            console.log(err, "Form wont be submitted")
+            
         }    
     }
 
@@ -126,7 +129,7 @@ const TaskUI = ({show=false, toggle}) => {
                             min="1"
                             value = {amount}
                             onChange = {e => setAmount(e.target.value)}
-                            step=".25"
+                            step=".5"
                             className={amountErr.length > 0 ? "error-true" : ""}/>
                         { amountErr.length > 0 &&
                         <span className="form-error">

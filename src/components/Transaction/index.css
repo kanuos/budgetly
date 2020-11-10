@@ -1,0 +1,92 @@
+.transaction-entry {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1rem auto;
+    align-items: center;
+    border-bottom: 1px dashed var(--primary-light-hover);
+}
+
+.transaction-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.transaction-amount {
+    align-self: flex-start;
+    font-size: 1.75rem;
+    font-weight: 300;
+}
+.transaction-desc > span {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+.transaction-desc > em {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--primary-dark-hover);
+    text-transform: capitalize;
+    margin-bottom: .5rem;
+}
+.transaction-desc > u {
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--primary-dark);
+    text-decoration: none;
+    position: relative;
+}
+.transaction-desc > u::after {
+    margin-left: .5rem;
+    visibility: hidden;
+    text-transform: capitalize;
+    content: attr(data-text);
+    pointer-events: none;
+}
+.transaction-desc > u:hover::after {
+    pointer-events: all;
+    visibility: visible;
+}
+.transaction-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: fit-content;
+}
+.transaction-btn:first-child {
+    margin-right: 1rem;
+}
+.transaction-btn > img {
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    object-fit: cover;
+    transition: all .4s;
+}
+.transaction-btn > span {
+    font-size: 3rem;
+    cursor: pointer;
+    justify-self: flex-end;
+    transition: all .4s;
+}
+.transaction-btn > img:hover , .transaction-btn > span:hover {
+    filter: invert(100%);
+} 
+.transaction-control-box {
+    position: absolute;
+    background-image: linear-gradient(35deg, var(--expense) 50%, var(--income)50%);
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    transform-origin: left;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+.show-options {
+    width: 100%;
+}
+.hide-options {
+    width: 0%;
+}
