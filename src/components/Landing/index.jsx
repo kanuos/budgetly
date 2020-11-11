@@ -2,12 +2,15 @@ import React from 'react'
 import Brand from '../Nav/brand'
 import Account from './Account'
 import Footer from '../Footer'
+import { Link } from 'react-router-dom'
 
-const index = () => {
+const Landing = () => {
     return (
         <>
         <header className="landing-header">
-            <Brand />
+            <Link to="/">
+                <Brand />
+            </Link>
             <section className="web-only landing-article-box">
                 <article className="landing-article">
                     <h2>
@@ -29,16 +32,16 @@ const index = () => {
                 </article>
             </section>
             <article className="web-only demo-link-box">
-                <button className="demo-link">
+                <Link to="/demo" className="demo-link">
                     try demo
-                </button>
+                </Link>
             </article>
             <div className="header-form-box">
                 <Account />
                 <article className="mobile-only demo-link-box">
-                    <button className="demo-link">
+                    <Link to="/demo" className="demo-link">
                         try demo
-                    </button>
+                    </Link>
                 </article>
             </div>
         </header>
@@ -47,4 +50,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Landing

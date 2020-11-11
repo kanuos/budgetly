@@ -7,66 +7,58 @@ import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import exit from '../../assets/exit.svg';
 
-const Nav = () => {
+const Nav = ({tab}) => {
     const [navOpen, setNav] = useState(false);
     function toggleNav() {
         setNav(() => !navOpen);
     }
 
+    const handleTabSelect = (e) => {
+        tab(e.target.textContent);
+        setNav(() => false);
+    }
+
     return (
     <nav className="mobile-only">
-        <Brand />
+        <Link to="/">
+            <Brand />
+        </Link>
         <ul className="navbar-list">
-            {navOpen ?
-            <li className="navbar-link-item">
-                <Link to="/" className="navbar-link" onClick={toggleNav}>
-                    log out   
-                </Link>
+            <li className="navbar-link-item navbar-toggler" onClick={toggleNav}>
+                &equiv;   
             </li>
-            :
-
-            <li className="navbar-link-item">
-                <Link to="/" className="navbar-link" onClick={toggleNav}>
-                    Try Demo    
-                </Link>
-            </li>}
         </ul>
         <ul className={`navbar-list--alt ${navOpen ? "nav-open":"nav-close"}`}>
+            <button className="nav-list-close" onClick={toggleNav}>&times;</button>
             <li>
                 <Link to="/" className="nav-brand--alt">
                     <Brand />
                 </Link>
             </li>
-            <li>
-                <Link to="/"className="nav-link--alt" >
+            <li onClick={handleTabSelect} value="profile" className="nav-item">
                 <img
                     src={profile} 
                     alt="profile"/>
                     profile
-                </Link>
             </li>
-            <li>
-                <Link to="/"className="nav-link--alt" >
+            <li onClick={handleTabSelect} value="history" className="nav-item">
                 <img
                     src={stats} 
                     alt="history"/>
                     history
-                </Link>
             </li>
-            <li>
-                <Link to="/" className="nav-link--alt">
+            <li onClick={handleTabSelect} value="calculator" className="nav-item">
                 <img
                     src={calculate} 
                     alt="calculator"/>
                     calculator
-                </Link>
             </li>
             <li>
-                <Link to="/" className="nav-link--alt" onClick={toggleNav}>
-                <img
-                    src={exit} 
-                    alt="exit"/>
-                    sign out
+                <Link to="/logout" className="nav-item">
+                    <img
+                        src={exit} 
+                        alt="exit"/>
+                        sign out
                 </Link>
             </li>
         </ul> 

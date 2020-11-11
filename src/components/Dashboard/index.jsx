@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
 import Brand from '../Nav/brand';
+import Calculator from '../calculator'
+import History from '../history'
 import './index.css';
 import profile from '../../assets/face.svg';
 import exit from '../../assets/exit.svg';
 import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import register from '../../assets/add.svg';
-import {getCurrentMonth, getCurrentYear} from '../../utils'
 import CrudTab from '../crudTab';
 
 const Dashboard = (props) => {
-    // const {tab, getTab} = props;
+    // get the list for Crud Tab from props
+
     let temp = Date.now() %2 === 0;
     const [currentTab, setTab] = useState(1);
 
@@ -23,11 +25,19 @@ const Dashboard = (props) => {
         "investment calculator",
         "sign out using router"
     ]
+    
+    function getTab(tab) {
+        switch(tab){
+            case "profile": setTab(() => 1); break;
+            case "history": setTab(() => 2); break;
+            case "calculator": setTab(() => 3); break;
+            default: setTab(() => 1);
+        }
+    }
 
     return (
         <div className="dashboard-wrapper">
-        <Nav 
-        />
+        <Nav tab={getTab}/>
         <aside className="web-only aside-nav">
             <Brand />
             {temp && <ul className="aside-link-list">
@@ -37,7 +47,7 @@ const Dashboard = (props) => {
                         className="aside-link-icon" 
                         src={profile} 
                         alt="profile"/>
-                        {getCurrentMonth()} {getCurrentYear()}
+                        profile
                     </button>
                 </li>
                 <li>
@@ -95,7 +105,8 @@ const Dashboard = (props) => {
         <main>
             <div className="container">
                 {currentTab === 1 && <CrudTab />}
-                {currentTab !== 1 && <>Tab selected = {tabs[currentTab]} </>}
+                {currentTab === 2 && <Calculator />}
+                {currentTab === 3 && <History />}
             </div>
         </main>
         </div>

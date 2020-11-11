@@ -50,7 +50,15 @@ nav {
 .navbar-link:hover::after, .active-link::after {
     transform: scale(1);
 }
-
+.navbar-toggler {
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--primary-light-hover);
+    transition: all .4s ease;
+}
+.navbar-toggler:hover {
+    color: var(--primary-light);
+}
 .navbar-list--alt {
     position: fixed;
     z-index: 100;
@@ -85,7 +93,8 @@ nav {
 .nav-brand--alt > * {
     font-size: 3rem;
 }
-.nav-link--alt {
+.nav-item {
+    color: var(--primary-light-hover);
     text-transform: capitalize;
     font-size: 1.75rem;
     display: flex;
@@ -94,41 +103,62 @@ nav {
     margin: 2rem 0;
     position: relative;
     padding: .5rem 1.5rem;
+    cursor: pointer;
 }
-.nav-link--alt > img {
+.nav-item > img {
     height: 1.75rem;
     Width: 1.75rem;
     margin-right: .75rem;
     filter: invert(80%);
 }
-.nav-link--alt::after,
-.nav-link--alt::before {
+.nav-item::after,
+.nav-item::before {
     position: absolute;
     content: '';
     width: 0%;
     transition: all .4s ease-out;
 }
-.nav-link--alt::after {
+.nav-item::after {
     height: 100%;
     left: 0;
     z-index: -1;
     background-color: var(--primary-dark-hover);
 }
-.nav-link--alt::before {
+.nav-item::before {
     height: 2px;
     bottom: 0;
     right: 0;
     background-color: var(--primary-light-hover);
 }
-.nav-link--alt:hover::before,
-.nav-link--alt:hover::after {
+.nav-item:hover::before,
+.nav-item:hover::after {
     width: 100%;
 }
-.nav-link--alt:hover {
+.nav-item:hover {
     color: var(--primary-light);
 }
-.nav-link--alt:hover > img {
+.nav-item:hover > img {
     filter: invert(100%);
+}
+.nav-list-close {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--primary-light-hover);
+    font-size: 2.5rem;
+    transition: all .5s;
+    cursor: pointer;
+    padding: 0 1rem;
+    clip-path: circle();
+    background-color: transparent;
+}
+.nav-list-close:hover {
+    color: var(--expense);
+    background-color: var(--primary-dark-hover);
+    transform: translateZ(2);
 }
 
 @media (min-width: 800px) {
