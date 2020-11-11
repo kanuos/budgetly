@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Brand from '../Nav/brand'
 import './index.css';
-import {today, validMinimumLength, getCustomTimeObject} from '../../utils'
+import {today, firstDayOfMonth, validMinimumLength, getCustomTimeObject} from '../../utils'
 
 const TaskUI = ({show=false, toggle, getData, initialData}) => {
     const [type, setType] = useState(initialData ? initialData.type : "");
@@ -159,6 +159,8 @@ const TaskUI = ({show=false, toggle, getData, initialData}) => {
                             className={dateErr.length > 0 ? "error-true" : ""}
                             type="date" 
                             value = {date}
+                            // min={firstDayOfMonth.toString()}
+                            max={today.toString()}
                             onChange = {e => setDate(e.target.value)}
                             placeholder="Descrpion"/>
                         {dateErr.length > 0 && 

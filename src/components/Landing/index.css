@@ -88,6 +88,7 @@
 }
 .form-input {
     cursor: text;
+    width: 100%;
     border: none;
     cursor: text;
     border-bottom: 1.5px solid var(--primary-light-hover);

@@ -9,22 +9,12 @@ import profile from '../../assets/face.svg';
 import exit from '../../assets/exit.svg';
 import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
-import register from '../../assets/add.svg';
 import CrudTab from '../crudTab';
 
 const Dashboard = (props) => {
     // get the list for Crud Tab from props
 
-    let temp = Date.now() %2 === 0;
     const [currentTab, setTab] = useState(1);
-
-    const tabs = [
-        "",
-        "the ui for CRUD and list", 
-        "history journals with two views : <Month, List>",
-        "investment calculator",
-        "sign out using router"
-    ]
     
     function getTab(tab) {
         switch(tab){
@@ -40,7 +30,7 @@ const Dashboard = (props) => {
         <Nav tab={getTab}/>
         <aside className="web-only aside-nav">
             <Brand />
-            {temp && <ul className="aside-link-list">
+            <ul className="aside-link-list">
                 <li>
                     <button onClick={() => setTab(1)}>
                     <img
@@ -77,27 +67,7 @@ const Dashboard = (props) => {
                         sign out
                     </button>
                 </li>
-            </ul>}
-            {!temp && <ul className="aside-link-list">
-                <li>
-                    <button onClick={() => setTab(1)}>
-                    <img
-                        className="aside-link-icon" 
-                        src={exit} 
-                        alt="sign in"/>
-                        sign in
-                    </button>
-                </li>
-                <li>
-                    <button onClick={() => setTab(2)}>
-                    <img
-                        className="aside-link-icon" 
-                        src={register} 
-                        alt="register"/>
-                        register
-                    </button>
-                </li>
-            </ul>}
+            </ul>
             <footer className="aside-footer">
                 <FooterContent />
             </footer>

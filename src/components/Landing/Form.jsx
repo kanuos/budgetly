@@ -83,7 +83,7 @@ const FormField = ({field, handleChange}) => {
     useEffect(()=> {
         setActive(() => value.trim().length > 0)
         handleChange({[field] : value})
-    }, [value])
+    }, [value, field])
 
     return (
     <section className="form-group">

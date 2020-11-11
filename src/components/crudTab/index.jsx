@@ -114,12 +114,11 @@ const CrudTab = (props) => {
                 </article>
             </div>
         </section>
-        {modalOn && 
-            <TaskModal 
-                show={modalOn} 
-                getData = {getFormData}
-                initialData = {null}
-                toggle = {() => setModal(!modalOn)}/>}
+        <TaskModal 
+            show={modalOn} 
+            getData = {getFormData}
+            initialData = {null}
+            toggle = {() => setModal(!modalOn)}/>
         </>
     )
 }

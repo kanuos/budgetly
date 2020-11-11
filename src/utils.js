@@ -7,6 +7,15 @@ export const today = {
     }
 }
 
+export const firstDayOfMonth = {
+    month : new Date().getUTCMonth() + 1,
+    year : new Date().getUTCFullYear(),
+    toString(){
+        return `${this.year}-${doubleDigit(this.month)}-01`;
+    }
+}
+
+
 export const doubleDigit = number => {
     number = Number(number);
     return number < 10 ? `0${number}` : number;
