@@ -7,9 +7,11 @@ import Transaction from '../Transaction'
 // import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
 
 
-const CrudTab = () => {
-    const [incomes, setIncomes] = useState([])
-    const [expenses, setExpenses] = useState([]);
+const CrudTab = (props) => {
+    const {initialIncomes, initialExpenses} = props;
+    
+    const [incomes, setIncomes] = useState(initialIncomes || [])
+    const [expenses, setExpenses] = useState(initialExpenses || []);
     const [total, setTotal] = useState(0);
     const [income, setIncome] = useState(0);
     const [expense, setExpense] = useState(0);
@@ -31,14 +33,12 @@ const CrudTab = () => {
     }, [income, expense])
 
     useEffect(() => {
-        console.log("Incomes list changed");
         setIncome(incomes.reduce((acc,cur) => {
             return acc + parseFloat(cur.amount)
         }, 0))
     }, [incomes])
     
     useEffect(() => {
-        console.log("Expenses list changed");
         setExpense(expenses.reduce((acc,cur) => {
             return acc + parseFloat(cur.amount)
         }, 0))
