@@ -4,7 +4,8 @@ import Account from './Account'
 import Footer from '../Footer'
 import { Link } from 'react-router-dom'
 
-const Landing = () => {
+const Landing = (props) => {
+    const {signInMode = false} = props;
     return (
         <>
         <header className="landing-header">
@@ -37,7 +38,7 @@ const Landing = () => {
                 </Link>
             </article>
             <div className="header-form-box">
-                <Account />
+                <Account signIn = {signInMode} />
                 <article className="mobile-only demo-link-box">
                     <Link to="/demo" className="demo-link">
                         try demo

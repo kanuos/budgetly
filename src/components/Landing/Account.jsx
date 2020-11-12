@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import Form from './Form';
 import './index.css'
 
-const Account = () => {
+const Account = ({signIn}) => {
     const fieldOpts = {
         login : ["email", "password"],
         register : ["name", "email", "password"]
     }
-
-    const [loginMode, setMode] = useState(false);
-    const [fields, setFields] = useState([...fieldOpts.register])
-    const [title, setTitle] = useState("register");
+console.log(signIn);
+    const [loginMode, setMode] = useState(signIn);
+    const [fields, setFields] = useState(signIn ? [...fieldOpts.login] : [...fieldOpts.register])
+    const [title, setTitle] = useState(signIn ? "login" : "register");
 
     function toggleFields() {
         if (loginMode){

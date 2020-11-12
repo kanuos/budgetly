@@ -320,10 +320,15 @@
     }
     .landing-article {
         margin: 1rem;
+        filter: grayscale(0%);
     }
 }
 
 @media (min-width:1515px){
+    .landing-article > img {
+        height: 25rem;
+        width: 25rem;
+    }
     .web-only.demo-link-box {
         width: 50%;
         margin-left: 0;
