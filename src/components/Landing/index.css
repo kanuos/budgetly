@@ -196,17 +196,17 @@
     font-size: 1.25rem;
     text-transform: uppercase;
     background: transparent;
-    color: var(--expense-light);
+    color: var(--income-dark);
     border: none;
     outline: none;
+    border-radius: .25rem;
     max-width: max-content;
     transition: all .4s ease;
     cursor: pointer;
 }
 .demo-link:hover {
     color: var(--primary-light);
-    background: var(--expense);
-    box-shadow: 0 1px .5rem var(--primary-dark-hover);
+    background: var(--income);
 }
 .demo-link-box {
     margin-top: 3rem;
