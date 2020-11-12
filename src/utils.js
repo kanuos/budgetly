@@ -62,6 +62,46 @@ export const createObjectFromArray = (array) => {
 
 export const isValidEmail = emailStr => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return emailStr.match(regex);
+    return regex.test(emailStr)
+}
 
+
+export const validField = (field, value, min=6) => {
+    field = field.toLowerCase();
+    const result = {};
+    let isValid;
+    switch(field){
+        case "password":
+        case "name":
+            isValid = validMinimumLength(value, min)
+            result.isValid = isValid;
+            if (!isValid){
+                result.error = `${field} must be at least ${min} characters long`;
+            }
+            break;
+        case "email":
+            isValid = isValidEmail(value)
+            result.isValid = isValid;
+            if (!isValid){
+                result.error = "Invalid Email";
+            }
+            break;
+        case "roi":
+        case "amount":
+        case "period":
+            isValid = !isNaN(value)
+            result.isValid = isValid;
+            if (!isValid){
+                result.error = `${field} must be a valid number`;
+            }
+            break;
+        default:
+            isValid = validMinimumLength(value, min)
+            result.isValid = isValid;
+            if (!isValid){
+                result.error = `${field} must be at least ${min} characters long`;
+            }
+            break;
+    }
+    return result;
 }

@@ -19,8 +19,8 @@ const Dashboard = (props) => {
     function getTab(tab) {
         switch(tab){
             case "profile": setTab(() => 1); break;
-            case "history": setTab(() => 2); break;
-            case "calculator": setTab(() => 3); break;
+            case "calculator": setTab(() => 2); break;
+            case "history": setTab(() => 3); break;
             default: setTab(() => 1);
         }
     }
@@ -41,7 +41,7 @@ const Dashboard = (props) => {
                     </button>
                 </li>
                 <li>
-                    <button onClick={() => setTab(2)}>
+                    <button onClick={() => setTab(3)}>
                     <img
                         className="aside-link-icon" 
                         src={stats} 
@@ -50,7 +50,7 @@ const Dashboard = (props) => {
                     </button>
                 </li>
                 <li>
-                    <button onClick={() => setTab(3)}>
+                    <button onClick={() => setTab(2)}>
                     <img
                         className="aside-link-icon" 
                         src={calculate} 

@@ -1,5 +1,6 @@
 :root {
     --income : rgb(40, 185, 181);
+    --income-dark : rgb(3, 146, 141);
     --expense : rgb(255, 80, 73); 
     --income-light : rgba(40, 185, 181, .7);
     --expense-light : rgba(255, 80, 73, .7); 
@@ -10,6 +11,7 @@
     --white-opaque-tint : 
         linear-gradient(35deg, rgba(255,255,255,.75), rgba(255,255,255,.65));
     --dark-tint : rgba(0,0,0,.75);
+    --lightest : white;
     }
 * {
     margin: 0;
@@ -22,6 +24,10 @@
 *:link {
     cursor: pointer;
     text-decoration: none;
+}
+*::selection {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
 }
 html, body, #root{
     height: 100%;

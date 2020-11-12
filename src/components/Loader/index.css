@@ -26,8 +26,8 @@
     align-items: center;
 }
 .loader-line {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.5em;
+    width: 1.5em;
     background-color: var(--primary-dark);
     border-radius: 50%;
     position: relative;
