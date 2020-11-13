@@ -3,7 +3,7 @@ import Brand from '../Nav/brand'
 import './index.css';
 import {today, firstDayOfMonth, validMinimumLength, getCustomTimeObject} from '../../utils'
 
-const TaskUI = ({show=false, toggle, getData, initialData}) => {
+const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
     const [type, setType] = useState(initialData ? initialData.type : "");
     const [amount, setAmount] = useState(initialData ? initialData.amount : "");
     const [date, setDate] = useState(initialData ? initialData.date : today.toString());
@@ -154,15 +154,23 @@ const TaskUI = ({show=false, toggle, getData, initialData}) => {
                         <label htmlFor="date">
                             date of transaction
                         </label>
-                        <input 
+                    {!demoMode && <input 
                             id="date"
                             className={dateErr.length > 0 ? "error-true" : ""}
                             type="date" 
                             value = {date}
-                            // min={firstDayOfMonth.toString()}
                             max={today.toString()}
                             onChange = {e => setDate(e.target.value)}
-                            placeholder="Descrpion"/>
+                            placeholder="Descrpion"/>}
+                    {demoMode && <input 
+                            id="date"
+                            className={dateErr.length > 0 ? "error-true" : ""}
+                            type="date" 
+                            value = {date}
+                            min={firstDayOfMonth.toString()}
+                            max={today.toString()}
+                            onChange = {e => setDate(e.target.value)}
+                            placeholder="Descrpion"/>}
                         {dateErr.length > 0 && 
                         <span className="form-error">
                             {dateErr}

@@ -8,7 +8,7 @@ import Transaction from '../Transaction'
 
 
 const CrudTab = (props) => {
-    const {initialIncomes, initialExpenses} = props;
+    const {initialIncomes, initialExpenses, demoMode=false} = props;
     
     const [incomes, setIncomes] = useState(initialIncomes || [])
     const [expenses, setExpenses] = useState(initialExpenses || []);
@@ -115,6 +115,7 @@ const CrudTab = (props) => {
             </div>
         </section>
         <TaskModal 
+            demoMode = {demoMode}
             show={modalOn} 
             getData = {getFormData}
             initialData = {null}

@@ -1,4 +1,5 @@
 import {Switch, Route} from 'react-router-dom' 
+import Demo from './components/Demo';
 // import { useState } from 'react';
 import Landing from './components/Landing';
 
@@ -10,6 +11,7 @@ function App() {
     <Switch>
       <Route exact path="/" component={Landing}/>
       <Route path="/dashboard" component = {Dashboard} />
+      <Route path="/demo" component = {Demo} />
     </Switch>
   );
 }
