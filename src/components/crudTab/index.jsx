@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {getCurrentMonth, getCurrentYear} from '../../utils';
-import './index.css';
 import TaskModal from '../TaskModal'
 import {v4 as uuid} from 'uuid'
-import Transaction from '../Transaction'
+import Transaction from '../Transaction';
+import {Link} from 'react-router-dom'
 import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
+import './index.css';
 
 
 const CrudTab = (props) => {
@@ -86,7 +87,8 @@ const CrudTab = (props) => {
                 </h1>}
                 {demoMode && 
                     <span>
-                        Data wont be preserved! Register for FREE to use FULL APP
+                        Data wont be preserved! 
+                        <Link to="/">Register for FREE</Link> to use FULL APP
                     </span>
                 }
                 <ul className="budget-list">

@@ -19,10 +19,26 @@
 }
 .crud-header > span {
     margin-top: .5rem;
-    display: block;
+    display: inline-block;
     color: var(--primary-light);
     text-shadow: 0 1px var(--expense);
 }
+.crud-header > span > a {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    text-shadow: none;
+    display: inline-block;
+    margin: 0 .5rem;
+    padding: 0 .5rem;
+    cursor: pointer;
+    transition: all .3s ease;
+    text-transform: uppercase;
+}
+.crud-header > span > a:hover {
+    color: var(--primary-light);
+    background-color: var(--expense);
+}
+
 @keyframes hoverBg{
     0% {
         background-size: 100%;
