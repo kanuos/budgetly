@@ -4,28 +4,56 @@ import './index.css';
 import TaskModal from '../TaskModal'
 import {v4 as uuid} from 'uuid'
 import Transaction from '../Transaction'
-// import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
+import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
 
 
 const CrudTab = (props) => {
     const {initialIncomes, initialExpenses, demoMode=false} = props;
-    
+    const [existingData, setExistingData] = useState(null);
     const [incomes, setIncomes] = useState(initialIncomes || [])
     const [expenses, setExpenses] = useState(initialExpenses || []);
     const [total, setTotal] = useState(0);
     const [income, setIncome] = useState(0);
     const [expense, setExpense] = useState(0);
+    const [editMode, setEditMode] = useState(false);
     
     const [modalOn, setModal] = useState(false);
     
-    function getFormData(data){
-        data.id = uuid();
-        if (data.type.toLowerCase() === "exp"){
-            setExpenses(() => [...expenses, data])
+    function getFormData(data, edit){
+        if (!edit){
+            data.id = uuid();
         }
-        else{
-            setIncomes(() => [...incomes, data])
+        if (demoMode){
+            const entries = addEntry(data, edit);
+            setIncomes(() => entries.filter(entry => entry.type === "inc"))
+            setExpenses(() => entries.filter(entry => entry.type === "exp"))
+            setExistingData(null);
         }
+        else {
+            console.log("Add data to firestore", data);
+        }
+    }
+
+    function operation(id, operation){
+        if (demoMode){
+            switch(operation){
+                case "remove" :
+                    const entries = deleteEntry(id);
+                    setIncomes(() => entries.filter(entry => entry.type === "inc"))
+                    setExpenses(() => entries.filter(entry => entry.type === "exp")) 
+                    break;
+                default : 
+                    const data = editEntry(id)
+                    setEditMode(true);
+                    setExistingData(() => ({...data}));
+                    setModal(!modalOn);
+                    break;
+            }
+        }
+        else {
+            console.log("FireStore operation", {id, operation});
+        }
+
     }
 
     useEffect(() => {
@@ -49,9 +77,17 @@ const CrudTab = (props) => {
         <>
         <section className="crud-box">
             <header className="crud-header">
-                <h1 className="crud-title">
+                {!demoMode && <h1 className="crud-title">
                     Budget {getCurrentMonth()} {getCurrentYear()}
-                </h1>
+                </h1>}
+                {demoMode && <h1 className="crud-title">
+                    DEMO MODE
+                </h1>}
+                {demoMode && 
+                    <span>
+                        Data wont be preserved! Register to use FULL APP
+                    </span>
+                }
                 <ul className="budget-list">
                     <li className="budget-li final-li">
                         <span className="budget-li-key">final report</span>
@@ -89,10 +125,15 @@ const CrudTab = (props) => {
                         income
                     </legend>
                     {incomes.map(item => {
-                        const {amount, desc, id} = item;
+                        const {amount, desc, id, type, date} = item;
                         return (
                         <Transaction 
                             key={id} 
+                            id={id} 
+                            date = {date}
+                            type = {type}
+                            edit = {operation}
+                            remove = {operation}
                             amount={amount} 
                             desc = {desc}/>
                         )
@@ -103,10 +144,15 @@ const CrudTab = (props) => {
                         expense
                     </legend>
                     {expenses.map(item => {
-                        const {amount, desc, id} = item;
+                        const {amount, date, desc, id, type} = item;
                         return (
                         <Transaction 
                             key={id} 
+                            id={id} 
+                            date = {date}
+                            type = {type}
+                            edit = {operation}
+                            remove = {operation}
                             amount={amount} 
                             desc = {desc}/>
                         )
@@ -115,10 +161,11 @@ const CrudTab = (props) => {
             </div>
         </section>
         <TaskModal 
+            key={editMode}
             demoMode = {demoMode}
             show={modalOn} 
             getData = {getFormData}
-            initialData = {null}
+            initialData = {existingData}
             toggle = {() => setModal(!modalOn)}/>
         </>
     )

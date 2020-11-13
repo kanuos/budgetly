@@ -35,14 +35,20 @@ export const validateDateString = date => {
 
 export const getCustomTimeObject = dateStr => {
     if (validateDateString(dateStr)){
-        const date = new Date(dateStr);
+        let date = new Date(dateStr);
         return {
+            date : dateStr,
             stamp : date.getTime(),
             month : getCurrentMonth(date.getUTCMonth()),
             year : date.getUTCFullYear()
         }
     }
     return null;
+}
+
+export function formatHTMLDate(date){
+    const [yyyy,mm,dd] = date.split('-');
+    return `${dd}-${getCurrentMonth(mm - 1)}-${yyyy}`;
 }
 
 export const getCurrentMonth = (month=new Date().getMonth()) => {

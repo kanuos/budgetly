@@ -17,7 +17,12 @@
     animation: hoverBg 3s ease-in-out infinite;
     position: relative;
 }
-
+.crud-header > span {
+    margin-top: .5rem;
+    display: block;
+    color: var(--primary-light);
+    text-shadow: 0 1px var(--expense);
+}
 @keyframes hoverBg{
     0% {
         background-size: 100%;
@@ -123,6 +128,8 @@
 .crud-article > legend {
     font-size: 2rem;
     text-transform: capitalize;
+    border-bottom: 2px solid currentColor;
+    margin: 1rem 0;
 }
 .legend-income {
     color: var(--income);

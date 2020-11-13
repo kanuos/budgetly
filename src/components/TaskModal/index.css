@@ -142,7 +142,10 @@
     background: var(--expense-light);
 }
 
-
+#amount {
+    margin: .5rem 0;
+    cursor: text;
+}
 .input-group--flex > input {
     display: none;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav/demo';
 import Brand from '../Nav/brand';

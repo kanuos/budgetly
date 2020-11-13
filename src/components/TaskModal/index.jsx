@@ -3,15 +3,45 @@ import Brand from '../Nav/brand'
 import './index.css';
 import {today, firstDayOfMonth, validMinimumLength, getCustomTimeObject} from '../../utils'
 
-const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
-    const [type, setType] = useState(initialData ? initialData.type : "");
-    const [amount, setAmount] = useState(initialData ? initialData.amount : "");
-    const [date, setDate] = useState(initialData ? initialData.date : today.toString());
-    const [desc, setDesc] = useState(initialData ? initialData.desc : "");
+const TaskUI = (props) => {
+    const {show=false,initialData, toggle, getData, demoMode=false} = props;
+    
+    const [editMode, setEditMode] = useState(false);
+    const [type, setType] = useState("");
+    const [amount, setAmount] = useState("");
+    const [date, setDate] = useState(today.toString());
+    const [desc, setDesc] = useState("");
+    
     const [typeErr, setTypeErr] = useState("");
     const [amountErr, setAmountErr] = useState("");
     const [dateErr, setDateErr] = useState("");
     const [descErr, setDescErr] = useState("");
+
+    useEffect(()=> {
+        if(initialData){
+            console.log(initialData);
+            setType(() => initialData.type);
+            setAmount(() => initialData.amount);
+            setDate(() => initialData.date);
+            setDesc(() => initialData.desc);
+            setEditMode(true);
+        }
+        else {
+            setType("");
+            setAmount("");
+            setDate(today.toString());
+            setDesc("");
+        }
+    }, [initialData])
+
+    function handleToggle() {
+        setType("");
+        setAmount("");
+        setDate("");
+        setDesc("");
+        setEditMode(false);
+        toggle();
+    }
 
     function handleSubmit (e) {
         try {
@@ -30,15 +60,20 @@ const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
             }
             else {
                 const dateObj = getCustomTimeObject(date);
+                
                 if(dateObj){
-                    getData({
-                        type, date : dateObj, amount, desc
-                    })
-                    toggle()
+                    const data = {
+                        ...dateObj, type, amount, desc
+                    }
+                    if(initialData && initialData.id) {
+                        data.id = initialData.id;
+                    }
                     setType("")
                     setAmount("")
                     setDesc("")
                     setDate(today.toString())
+                    getData({...data},editMode)
+                    toggle()
                 }
             }
         }
@@ -81,7 +116,7 @@ const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
         <section className={`ui ui-${show?"show":"hide"}`}>
             <button 
                 className="close-ui"
-                onClick={toggle}>
+                onClick={handleToggle}>
                     &times;
             </button>
             <form onSubmit={handleSubmit}>
@@ -99,7 +134,9 @@ const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
                                 <input 
                                     type="radio" 
                                     id="inc"
-                                    value = "inc"
+                                    key = {type==="inc"}
+                                    defaultChecked = {type==="inc"}
+                                    value="inc"
                                     onChange={() => setType("inc")}
                                     name="type"/>
                                 <label htmlFor="inc">Income</label>
@@ -108,9 +145,11 @@ const TaskUI = ({show=false, toggle, getData, initialData, demoMode=false}) => {
                                 <input 
                                     type="radio" 
                                     id="exp"
+                                    key = {type==="exp"}
+                                    defaultChecked = {type==="exp"}
+                                    value="exp"
                                     onChange={() => setType("exp")}
-                                    name="type" 
-                                    value="exp"/>
+                                    name="type"/>
                                 <label htmlFor="exp">Expense</label>
                             </div>
                         </div>

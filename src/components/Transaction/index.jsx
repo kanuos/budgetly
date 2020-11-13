@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import './index.css';
-import remove from '../../assets/delete.svg'
-import edit from '../../assets/edit.svg'
-// import add from '../../assets/add.svg'
+import removeIcon from '../../assets/delete.svg'
+import editIcon from '../../assets/edit.svg'
+import {formatHTMLDate} from '../../utils'
 
 const Transaction = (props) => {
     const [showOptions, toggleShowOptions] = useState(false);
-    const {desc, amount, date = new Date().toDateString()} = props;
+    const {id, desc, amount, edit, remove , type, date} = props;
     return (
         <article className="transaction-entry">
         <section className="transaction-desc">
             <span>
                 {desc}
             </span>
-            <em>{date}</em>
+            <em>{formatHTMLDate(date)}</em>
             <u 
                 data-text="see options"
                 onClick={() => toggleShowOptions(!showOptions)}>
@@ -22,14 +22,16 @@ const Transaction = (props) => {
 
             <div className={`transaction-control-box ${!showOptions ? "hide-options":"show-options"}`}>
                 <button 
+                    onClick = {() => edit(id,"edit")}
                     title="Edit Transaction"
                     className="transaction-btn">
-                    <img src={edit} alt="edit transaction"/>
+                    <img src={editIcon} alt="edit transaction"/>
                 </button>
                 <button
+                    onClick = {() => remove(id,"remove")}
                     title="Delete Transaction"
                     className="transaction-btn">
-                    <img src={remove} alt="delete transaction"/>
+                    <img src={removeIcon} alt="delete transaction"/>
                 </button>
                 <button
                     title="Hide Options"
@@ -41,7 +43,7 @@ const Transaction = (props) => {
                 </button>
             </div>
         </section>
-        <section className="transaction-amount">
+        <section className={`transaction-amount ${type}`}>
             {amount}
         </section>
         </article>

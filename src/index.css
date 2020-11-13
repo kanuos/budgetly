@@ -2,6 +2,7 @@
     --income : rgb(40, 185, 181);
     --income-dark : rgb(3, 146, 141);
     --expense : rgb(255, 80, 73); 
+    --expense-dark : rgb(212, 56, 50); 
     --income-light : rgba(40, 185, 181, .7);
     --expense-light : rgba(255, 80, 73, .7); 
     --primary-dark : rgb(12, 9, 13);

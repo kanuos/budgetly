@@ -15,11 +15,17 @@
 }
 .transaction-amount {
     align-self: flex-start;
-    font-size: 1.75rem;
-    font-weight: 300;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+.transaction-amount.inc {
+    color: var(--income-dark);
+}
+.transaction-amount.exp {
+    color: var(--expense-dark);
 }
 .transaction-desc > span {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-transform: capitalize;
 }
 .transaction-desc > em {
@@ -27,7 +33,7 @@
     font-weight: 300;
     color: var(--primary-dark-hover);
     text-transform: capitalize;
-    margin-bottom: .5rem;
+    margin: .5rem 0;
 }
 .transaction-desc > u {
     font-size: 1.25rem;
