@@ -28,6 +28,7 @@ const CrudTab = (props) => {
             setIncomes(() => entries.filter(entry => entry.type === "inc"))
             setExpenses(() => entries.filter(entry => entry.type === "exp"))
             setExistingData(null);
+            setEditMode(false);
         }
         else {
             console.log("Add data to firestore", data);
@@ -85,7 +86,7 @@ const CrudTab = (props) => {
                 </h1>}
                 {demoMode && 
                     <span>
-                        Data wont be preserved! Register to use FULL APP
+                        Data wont be preserved! Register for FREE to use FULL APP
                     </span>
                 }
                 <ul className="budget-list">

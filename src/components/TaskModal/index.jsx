@@ -19,7 +19,6 @@ const TaskUI = (props) => {
 
     useEffect(()=> {
         if(initialData){
-            console.log(initialData);
             setType(() => initialData.type);
             setAmount(() => initialData.amount);
             setDate(() => initialData.date);
@@ -27,18 +26,19 @@ const TaskUI = (props) => {
             setEditMode(true);
         }
         else {
-            setType("");
-            setAmount("");
-            setDate(today.toString());
-            setDesc("");
+            resetFields();
         }
     }, [initialData])
 
-    function handleToggle() {
+    function resetFields(){
         setType("");
         setAmount("");
-        setDate("");
+        setDate(today.toString());
         setDesc("");
+    }
+
+    function handleToggle() {
+        resetFields();
         setEditMode(false);
         toggle();
     }

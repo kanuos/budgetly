@@ -2,11 +2,11 @@ let entries = [];
 
 export function addEntry(entry, editMode=null){
     if (editMode) {
-        entries = entries.map(el => {
+        entries = [...entries.map(el => {
             if (el.id === entry.id)
                 return entry;
             return el;
-        })
+        })]
     }
     else {
         entries.push(entry);

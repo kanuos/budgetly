@@ -22,13 +22,19 @@ const Transaction = (props) => {
 
             <div className={`transaction-control-box ${!showOptions ? "hide-options":"show-options"}`}>
                 <button 
-                    onClick = {() => edit(id,"edit")}
+                    onClick = {() => {
+                        edit(id,"edit")
+                        toggleShowOptions(!showOptions)
+                    }}
                     title="Edit Transaction"
                     className="transaction-btn">
                     <img src={editIcon} alt="edit transaction"/>
                 </button>
                 <button
-                    onClick = {() => remove(id,"remove")}
+                    onClick = {() => {
+                        remove(id,"remove")
+                        toggleShowOptions(!showOptions)
+                    }}
                     title="Delete Transaction"
                     className="transaction-btn">
                     <img src={removeIcon} alt="delete transaction"/>
