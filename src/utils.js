@@ -142,7 +142,7 @@ export function investmentPlan(Principal, roi, period, frequency, contribution, 
         case "halfYear": n = 2 ; break;
         default : n = 1; 
     }
-    const CI = compoundInterest(P, roi, t, n) - P;
+    const CI = compoundInterest(P, roi, t, n);
     const future = pmt * ((Math.pow((1 + r/n), (n * t)) - 1) / (r/n)) * (1 + r/n)
     // return future;  
     return CI + future;
