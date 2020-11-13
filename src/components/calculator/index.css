@@ -1,12 +1,170 @@
 .calculator-box {
     width: 80%;
-    margin: 2rem auto;
-    font-size: 1.25rem;
+    margin: 1.5rem auto;
+}
+.calculator-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+.calculator-header > .navbar-brand {
+    background-image: linear-gradient(-35deg,var(--income)50%,var(--expense)50%);
+    color: transparent;
+    background-clip: text;
+}
+.calculator-header > strong {
+    font-size: 2.5rem;
+    color: var(--primary-dark-hover);
+    font-family: "Righteous", cursive;
 }
 .calculator-form-box {
-    min-height: 50vh;
+    display: block;
+    margin-top: 4rem;
+    height: auto;
 }
+.calculator-form {
+    max-width: 70rem;
+    margin: auto;
+    transition: all .5s ease;
+    transform-origin: top;
+    padding: 0 1rem;
+}
+.calculator-form > .form-group {
+    margin: 1.75rem 0;
+    position: relative;
+}
+
+.calculator-form > .form-group > input {
+    padding: .5rem 0;
+}
+.calculator-form > .form-group > label {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 60%;
+    pointer-events: none;
+    transition: all .5s ease;
+    text-transform: capitalize;
+    color: var(--primary-light-hover);
+}
+.calculator-form > .form-group > span {
+    transition: all .5s ease;
+}
+.calculator-form > .form-group > input:focus + label,
+.calculator-form > .form-group > .current-label {
+    bottom: 85%;
+    color: var(--primary-dark);
+    transform: scale(.95);
+    font-weight: bolder;
+}
+.calculator-form > .form-group > input:focus ~ span,
+.calculator-form > .form-group > .current-span {
+    color: var(--primary-dark);
+    font-weight: bolder;
+}
+.calculator-form > * > button {
+    display: block;
+    width: max-content;
+    margin: 4rem auto 0 auto;
+    background: var(--primary-dark-hover);
+    border: none;
+    padding: .75rem 2rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: var(--primary-light-hover);
+    transition: all .5s ease;
+    cursor: pointer;
+    backface-visibility: hidden;
+}
+.calculator-form > *:hover > button {
+    background: var(--primary-dark);
+    color: var(--primary-light);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 1px 1rem var(--primary-dark-hover);
+}
+.calculator-form > .form-group.select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.calculator-form > .form-group.select > label {
+    position: relative;
+    color: var(--primary-dark);
+    font-weight: bolder;
+    flex-basis: 70%;
+}
+.calculator-form > .form-group.select > select {
+    font-size: 1.5rem;
+    flex-basis: 30%;
+    background-color:transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: var(--primary-dark);   
+    font-weight: bolder; 
+}
+.calculator-form > .form-group.select > span {
+    margin-top: 1rem;
+}
+.calculator-form > .form-group.select >  span {
+    color: var(--primary-dark);
+    font-weight: bolder;
+}
+.smaller {
+    transform: scale(0);
+}
+.regular {
+    transform: scale(1);
+}
+.helper {
+    word-break: break-all;
+    hyphens: auto;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--primary-light-hover);
+}
+.helper.error {
+    font-weight: bolder;
+    color: var(--expense);
+}
+.form-group.error > *{
+    border-bottom-color: var(--expense);
+}
+
 .calculator-result {
-    min-height: 20vh;
-    background-color: orangered;
+    transition: all .5s ease;
+    width: 100%;
+}
+
+.calculator-result.smaller {
+    transform: scale(0) translateY(0%);
+}
+.calculator-result.regular {
+    min-height: 50vh;
+    transform: scale(1) translateY(-140%);
+}
+.calculator-result > ul {
+    list-style: none;
+    width: 90%;
+    margin: auto;
+}
+.calculator-result > ul > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.calculator-result > ul > li:last-child {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--primary-light-hover);
+}
+.calculator-result > ul > li > span {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+.calculator-result > ul > li > span:last-child {
+    color: var(--income);
 }
