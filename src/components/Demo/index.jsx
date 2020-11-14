@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav/demo';
 import Brand from '../Nav/brand';
 import { Link } from  'react-router-dom'
-import './index.css';
 import exit from '../../assets/exit.svg';
 import add from '../../assets/new.svg';
 import CrudTab from '../crudTab';
+import Loader from '../Loader'
+import { LoginContext } from '../../contexts/LoginContext';
+import './index.css';
 
-const Demo = () => {
-    return (
+const Demo = (props) => {
+    const {user} = useContext(LoginContext);
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(false);
+        if (user){
+            props.history.push("/");
+        }
+    }, [user, props.history])
+    
+
+    return isLoading ? <Loader /> : (
         <div className="demo-wrapper">
         <Nav />
         <aside className="web-only aside-nav">

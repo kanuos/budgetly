@@ -5,9 +5,11 @@ export function register(email, password, name) {
         try{
             resolve(
                 auth.createUserWithEmailAndPassword(email, password)
-                .then(user => {
-                    user.displayName = name;
-                    return user;    
+                .then(() => {
+                    auth.currentUser.updateProfile({
+                        displayName : name
+                      })
+                    return auth.currentUser;    
                 })
             )
         }
@@ -15,4 +17,19 @@ export function register(email, password, name) {
             reject(err);
         }
     })
+}
+
+export function logIn(email, password) {
+    return new Promise((resolve, reject) => {
+        try {
+            resolve(auth.signInWithEmailAndPassword(email, password))
+        }
+        catch(err){
+            reject(err);
+        }
+    })
+}
+
+export function logout(){
+    return auth.signOut()
 }

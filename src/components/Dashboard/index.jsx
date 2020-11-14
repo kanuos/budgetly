@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
 import Brand from '../Nav/brand';
@@ -59,13 +60,13 @@ const Dashboard = (props) => {
                     </button>
                 </li>
                 <li>
-                    <button onClick={() => setTab(4)}>
+                    <Link to="/logout">
                     <img
                         className="aside-link-icon" 
                         src={exit} 
                         alt="sign out"/>
                         sign out
-                    </button>
+                    </Link>
                 </li>
             </ul>
             <footer className="aside-footer">

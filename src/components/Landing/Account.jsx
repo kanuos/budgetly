@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Brand from '../Nav/brand';
 import {validField} from '../../utils';
 import MiniLoader from '../Loader/miniLoader';
-import {auth} from '../../controls/firebase'
-import {register} from '../../controls/online'
+import {register, logIn} from '../../controls/online'
 import './index.css'
 
-const Account1 = ({signIn}) => {
+const Account1 = (props) => {
+    const {signIn} = props;
     const [signInMode, toggleMode] = useState(signIn)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
@@ -52,15 +52,15 @@ const Account1 = ({signIn}) => {
             setPassword("")
             return
         }
-        // const validData = !signInMode ? {email, name, password} : {email, password}
-
-        // simulation of server side tnx
         setLoading(() => true);        
         if (signInMode){
             // login here
-            auth.signInWithEmailAndPassword(email, password)
-                .then(console.log)
-                .catch(console.log)
+            logIn(email, password)
+                .catch(err => {
+                    setError(true);
+                    setMsg(err.message);
+                })
+                .finally(()=> setLoading(false))
         }
         else {
             register(email, password, name)
