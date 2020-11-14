@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Brand from '../Nav/brand';
 import {validField} from '../../utils';
-import MiniLoader from '../Loader/miniLoader'
+import MiniLoader from '../Loader/miniLoader';
+import {auth} from '../../controls/firebase'
+import {register} from '../../controls/online'
 import './index.css'
 
 const Account1 = ({signIn}) => {
@@ -26,11 +28,11 @@ const Account1 = ({signIn}) => {
     }, [msg])
 
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         let valid = null
         if(!signInMode){
-            valid = validField("name", name);
+            valid = validField("name", name, 2);
             if (!valid.isValid){
                 setError(true)
                 setMsg(() => valid.error)
@@ -50,16 +52,34 @@ const Account1 = ({signIn}) => {
             setPassword("")
             return
         }
-        const validData = !signInMode ? {email, name, password} : {email, password}
+        // const validData = !signInMode ? {email, name, password} : {email, password}
 
         // simulation of server side tnx
         setLoading(() => true);        
-        setTimeout(()=> {
-            console.log("Submit : ",validData);
-            setMsg("Form submitted")
-            clearFields();  
-            setLoading(() => false);
-        }, 1000);
+        if (signInMode){
+            // login here
+            auth.signInWithEmailAndPassword(email, password)
+                .then(console.log)
+                .catch(console.log)
+        }
+        else {
+            register(email, password, name)
+            .then((user) => {
+                console.log(user);
+                setMsg("user created successfully! Login to continue")
+                clearFields();
+                setTimeout(function(){
+                    setMsg("")
+                    setError(false);
+                    toggleMode(!signInMode);
+                }, 2500)
+            })
+            .catch(err =>{
+                setError(true);
+                setMsg(err.message);
+            })
+            .finally(() =>setLoading(false))    
+        }
     }
 
     function clearFields(){
