@@ -8,8 +8,12 @@ const LoginContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     useEffect(()=> {
         auth.onAuthStateChanged(usr => {
+            console.log(user);
             if(usr){
                 setUser(() => usr)
+            }
+            else {
+                setUser(null)
             }
         })
     }, [user])

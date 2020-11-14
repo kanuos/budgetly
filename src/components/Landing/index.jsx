@@ -13,7 +13,7 @@ const Landing = (props) => {
         if (user){
             props.history.push("/dashboard");
         }
-    }, [user, props])
+    }, [user, props.history])
 
     return (
         <>

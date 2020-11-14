@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
@@ -11,12 +11,13 @@ import exit from '../../assets/exit.svg';
 import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import CrudTab from '../crudTab';
+import {LoginContext} from '../../contexts/LoginContext'
 
 const Dashboard = (props) => {
     // get the list for Crud Tab from props
 
     const [currentTab, setTab] = useState(1);
-    
+    const {user} = useContext(LoginContext);
     function getTab(tab) {
         switch(tab){
             case "profile": setTab(() => 1); break;
@@ -25,6 +26,12 @@ const Dashboard = (props) => {
             default: setTab(() => 1);
         }
     }
+
+    useEffect(()=> {
+        if(!user) {
+            props.history.push("/");
+        }
+    }, []);
 
     return (
         <div className="dashboard-wrapper">

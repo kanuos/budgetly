@@ -12,7 +12,12 @@ const Logout = (props) => {
 
     useEffect(() => {
         if(user) {
-            logout();
+            logout()
+                .then(()=> {
+                    setTimeout(()=> {
+                        props.history.push("/");
+                    }, 2000)
+                })
         }
         else {
             props.history.push("/");
@@ -26,6 +31,9 @@ const Logout = (props) => {
             <h1 className="logout-msg">
                 You have been logged out!
             </h1>
+            <h2>
+               Redirecting in 2 seconds..  
+            </h2>
             <h2>
                 Click <Link to="/">here</Link> to go to home
             </h2>

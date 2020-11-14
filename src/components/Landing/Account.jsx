@@ -5,7 +5,7 @@ import MiniLoader from '../Loader/miniLoader';
 import {register, logIn} from '../../controls/online'
 import './index.css'
 
-const Account1 = (props) => {
+const Account = (props) => {
     const {signIn} = props;
     const [signInMode, toggleMode] = useState(signIn)
     const [email, setEmail] = useState("")
@@ -159,4 +159,4 @@ const Account1 = (props) => {
     )
 }
 
-export default Account1
+export default Account
