@@ -1,5 +1,5 @@
 export const today = {
-    day : new Date().getUTCDate(),
+    day : new Date().getDate(),
     month : new Date().getUTCMonth() + 1,
     year : new Date().getUTCFullYear(),
     toString(){

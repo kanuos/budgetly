@@ -45,7 +45,7 @@ const Dashboard = (props) => {
                         className="aside-link-icon" 
                         src={profile} 
                         alt="profile"/>
-                        profile
+                        {user.displayName ? user.displayName : "profile"}
                     </button>
                 </li>
                 <li>
