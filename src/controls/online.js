@@ -41,13 +41,19 @@ export function logout(){
 
 // STORE ACTIONS
 
-const tnx = store.collection("transactions");
+let tnx = store.collection(`transactions`);
 
-export function addTransaction(entry) {
+export function addTransaction(entry, edit) {
     if (auth.currentUser){
         entry.uid = auth.currentUser.uid;
-        tnx.doc(entry.id).set(entry)
-        .catch(err => err)
+        if(edit){
+            tnx.doc(entry.id).update(entry)
+            .catch(err => err)
+        }
+        else {
+            tnx.doc(entry.id).set(entry)
+            .catch(err => err)
+        }
     }
     else {
         throw Error("Not logged in")
@@ -97,4 +103,22 @@ export async function deleteTnx(tnxID){
     return tnx
     .doc(tnxID)
     .delete()
+}
+
+export async function editTnx(tnxID){
+    return new Promise((resolve, reject) => {
+        try {
+            resolve(tnx.doc(tnxID)
+            .get()
+            .then(doc => {
+                if (doc.exists){
+                    return doc.data();
+                }
+                return null;
+            }))
+        }
+        catch(err){
+            reject(err);
+        }
+    })
 }

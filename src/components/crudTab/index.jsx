@@ -5,7 +5,7 @@ import {v4 as uuid} from 'uuid'
 import Transaction from '../Transaction';
 import {Link} from 'react-router-dom'
 import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
-import {addTransaction , getCurrentMonthTnxByUser, deleteTnx} from '../../controls/online'
+import {addTransaction , getCurrentMonthTnxByUser, deleteTnx, editTnx} from '../../controls/online'
 import './index.css';
 
 
@@ -31,7 +31,7 @@ const CrudTab = (props) => {
             setEditMode(false);
         }
         else {
-             addTransaction(data);
+             edit ? addTransaction(data, edit): addTransaction(data);
              retrieveData()
             }
     }
@@ -61,10 +61,11 @@ const CrudTab = (props) => {
                 if(demoMode){
                     const data = editEntry(id)
                     setExistingData(() => ({...data}));
-
                 }
                 else {
-                    // for firestore
+                    editTnx(id)
+                        .then(data => setExistingData(() => ({...data, id})))
+                        .catch(console.log)
                 }
                 setEditMode(true);
                 setModal(!modalOn);
