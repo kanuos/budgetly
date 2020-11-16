@@ -67,6 +67,20 @@
 
 
 /* ACCOUNT FORM SECTiON */
+.account-form {
+    animation: appear .3s ease;
+    transform-origin: center;
+}
+@keyframes appear {
+    from {
+        opacity: .5;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 .form-group {
     z-index: 5;
     margin: 0 auto;
@@ -143,15 +157,17 @@
     text-align: center;
     color: var(--dark-tint);
 }
-.form-redirect > em {
+.form-redirect > a {
+    color: var(--income-dark);
     cursor: pointer;
+    text-decoration: none;
     text-transform: uppercase;
     border-bottom: 1px dashed transparent;
     transition: all .4s ease;
     font-weight: bolder;
     text-shadow: 0 1px transparent;
 }
-.form-redirect > em:hover {
+.form-redirect > a:hover {
     color: var(--primary-dark);
     border-bottom: 1px dashed currentColor;
 }
@@ -177,17 +193,17 @@
     color: var(--primary-dark);
     background: var(--primary-light-hover);
 }
-.form-error {
+.form-error, .form-success {
     font-weight: bold;
     font-size: 1.25rem;
-    color: var(--expense);
     text-transform: capitalize;
+    text-align: center;
+}
+.form-error {
+    color: var(--expense);
 }
 .form-success {
-    font-weight: bold;
-    font-size: 1.25rem;
     color: var(--income);
-    text-transform: capitalize;
 }
 
 .demo-link {

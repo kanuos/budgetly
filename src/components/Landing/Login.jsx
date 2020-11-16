@@ -2,22 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Brand from '../Nav/brand';
 import {validField} from '../../utils';
 import MiniLoader from '../Loader/miniLoader';
-import {register, logIn} from '../../controls/online'
+import { logIn} from '../../controls/online'
 import './index.css'
+import { Link } from 'react-router-dom';
 
-const Account = (props) => {
-    const {signIn} = props;
-    const [signInMode, toggleMode] = useState(signIn)
+const Login = ({onSuccess}) => {
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [formError, setError] = useState(false);
     const [msg, setMsg] = useState("");
-    const [name, setName] = useState("");
     const [isLoading, setLoading] = useState(false);
-
-    function toggleFields() {
-        toggleMode(() => !signInMode);
-    }
 
     useEffect(()=> {
         const popupMsg = setTimeout(()=> {
@@ -27,18 +22,9 @@ const Account = (props) => {
         return () => clearTimeout(popupMsg);
     }, [msg])
 
-
     async function handleSubmit(e) {
         e.preventDefault();
         let valid = null
-        if(!signInMode){
-            valid = validField("name", name, 2);
-            if (!valid.isValid){
-                setError(true)
-                setMsg(() => valid.error)
-                return
-            }
-        }
         valid = validField("email", email);
         if (!valid.isValid){
             setError(true)
@@ -53,47 +39,22 @@ const Account = (props) => {
             return
         }
         setLoading(() => true);        
-        if (signInMode){
-            // login here
-            logIn(email, password)
-                .catch(err => {
-                    setError(true);
-                    setMsg(err.message);
-                })
-                .finally(()=> setLoading(false))
-        }
-        else {
-            register(email, password, name)
-            .then((user) => {
-                console.log(user);
-                setMsg("user created successfully! Login to continue")
-                clearFields();
-                setTimeout(function(){
-                    setMsg("")
-                    setError(false);
-                    toggleMode(!signInMode);
-                }, 2500)
-            })
-            .catch(err =>{
-                setError(true);
-                setMsg(err.message);
-            })
-            .finally(() =>setLoading(false))    
-        }
+        logIn(email, password)
+        .then(() => onSuccess.push("/dashboard"))
+        .catch(err => {
+            setError(true);
+            setMsg(err.message);
+        })
+        .finally(()=> setLoading(false))
     }
-
-    function clearFields(){
-        setEmail("");
-        setName("");
-        setPassword("");
-    }
-
     return (
         <>
         <form onSubmit = {handleSubmit} className="account-form">
             <header className="form-header">
                 <Brand />
-                <h2 className="form-title">{signInMode ? "login" : "register"}</h2>
+                <h2 className="form-title">
+                    login
+                </h2>
                 {msg.length > 0 && <strong className={formError ? "form-error" : "form-success"}>
                     {msg}
                 </strong>}
@@ -101,21 +62,8 @@ const Account = (props) => {
                     <MiniLoader />
                 </div>}
             </header>
-        { !signInMode && 
-            <section className="form-group">
-                <input 
-                    value= {name}
-                    onChange = {e => setName(() => e.target.value)}
-                    autoComplete="off"
-                    className="form-input"
-                    type="name" 
-                    id="name"/>
-                <label
-                    className={name.trim().length > 0 ? "form-label active-label" : "form-label"}
-                    htmlFor="name">
-                    your name
-                </label>
-            </section>}
+         
+            
             <section className="form-group">
                 <input 
                     value= {email}
@@ -149,14 +97,11 @@ const Account = (props) => {
             </div>
         </form>
         <h3 className="form-redirect">
-    {signInMode ?
-        <>Don't have an account? <em onClick={toggleFields}>Click here to register</em></>
-        :
-        <>Already have an account? <em onClick={toggleFields}>Click here to login</em></>
-    }
+            Don't have an account? 
+            <Link to="/register">Click here to register</Link>
         </h3>
-        </>
+    </>
     )
 }
 
-export default Account
+export default Login

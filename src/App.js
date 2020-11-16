@@ -5,16 +5,17 @@ import Landing from './components/Landing';
 import LoginContextProvider, {LoginContext} from './contexts/LoginContext'
 import Dashboard from './components/Dashboard'
 import Logout from './components/Logout';
+import LandingRegister from './components/Landing/LandingRegister';
 
 function App() {
   return (
     <Switch>
       <LoginContextProvider>
         <Route exact path="/" component={Landing}/>
+        <Route path="/register" component={LandingRegister}/>
         <ProtectedRoute path="/dashboard" component = {Dashboard} />
         <Route path="/logout" component={Logout} />
         <Route path="/demo" component = {Demo} />
-        <Route component={Landing}/>
       </LoginContextProvider>
     </Switch>
   );

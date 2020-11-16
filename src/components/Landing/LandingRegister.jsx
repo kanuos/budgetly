@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import Brand from '../Nav/brand'
-import Login from './Login'
+import Register from './Register'
 import Footer from '../Footer'
 import { Link } from 'react-router-dom'
+import {LoginContext} from '../../contexts/LoginContext';
 
 const Landing = (props) => {
+    const {user} = useContext(LoginContext);
+
+    // useEffect(()=> {
+    //     if (user){
+    //         props.history.push("/dashboard");
+    //     }
+    // }, [user, props.history])
+
     return (
         <>
         <header className="landing-header">
@@ -37,7 +46,7 @@ const Landing = (props) => {
                 </Link>
             </article>
             <div className="header-form-box">
-                <Login onSuccess = {props.history} />
+                <Register onSuccess = {props.history}/>
                 <article className="mobile-only demo-link-box">
                     <Link to="/demo" className="demo-link">
                         try demo

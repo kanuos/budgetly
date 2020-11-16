@@ -89,7 +89,7 @@ export const validField = (field, value, min=6) => {
             isValid = isValidEmail(value)
             result.isValid = isValid;
             if (!isValid){
-                result.error = "Invalid Email";
+                result.error = "Email cannot be empty and must be valid.";
             }
             break;
         case "roi":
