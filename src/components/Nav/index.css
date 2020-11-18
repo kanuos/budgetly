@@ -94,6 +94,9 @@ nav {
     font-size: 3rem;
 }
 .nav-item {
+    background-color: transparent;
+    outline: none;
+    border: none;
     color: var(--primary-light-hover);
     text-transform: capitalize;
     font-size: 1.75rem;

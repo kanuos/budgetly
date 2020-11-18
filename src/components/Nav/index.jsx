@@ -7,6 +7,7 @@ import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import exit from '../../assets/exit.svg';
 import {LoginContext} from '../../contexts/LoginContext'
+import {logout} from '../../controls/online'
 
 const Nav = ({tab}) => {
     const {user} = useContext(LoginContext);
@@ -57,12 +58,12 @@ const Nav = ({tab}) => {
                         calculator
                 </li>
                 <li>
-                    <Link to="/logout" className="nav-item">
+                    <button onClick = {logout} className="nav-item">
                         <img
                             src={exit} 
                             alt="exit"/>
                             sign out
-                    </Link>
+                    </button>
                 </li>
         </ul> 
     </nav>

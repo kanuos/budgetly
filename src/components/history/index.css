@@ -1,0 +1,67 @@
+.profile-header {
+    background-image: linear-gradient(35deg, var(--income), var(--expense-light)),url(../../assets/hero.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    padding: 2rem;
+}
+.profile-header > h1 {
+    font-size: 5rem;
+    font-weight: lighter;
+    text-transform: capitalize;
+    color: var(--primary-light);
+    text-shadow: 1px 1px var(--primary-dark);
+}
+.profile-header > small {
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    color: var(--primary-light);
+    padding: .25rem;
+    background-color: var(--primary-dark);
+}
+.profile-header > .profile-dossier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.profile-header > .profile-dossier > .container {
+    width: 70%;
+    max-width: 50rem;
+    margin-bottom: 1rem;
+}
+.profile-header > .profile-dossier > .container > h2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.75rem;
+    text-transform: capitalize;
+    background: var(--primary-light);
+    padding: .5rem 1rem;
+    color: var(--primary-dark-hover);
+    border-radius: .25rem;
+}
+.profile-header > .profile-dossier > .container > h2:first-of-type {
+    margin-bottom: 1rem;
+}
+.profile-header > .profile-dossier > .container > h2 > span {
+    font-family: "Righteous", cursive;
+}
+.profile-header > .profile-dossier > .container > h2:first-of-type > span:last-of-type {
+    color: var(--income);
+}
+.profile-header > .profile-dossier > .container > h2:last-of-type > span:last-of-type {
+    color: var(--expense);
+}
+.transacton-container {
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 900px) {
+    .profile-header {
+        min-height: 50vh;
+        background-position: bottom;
+    }
+}

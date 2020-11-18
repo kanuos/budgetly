@@ -154,3 +154,32 @@ export function investmentPlan(Principal, roi, period, frequency, contribution, 
     return CI + future;
 }
 
+
+
+// get monthly data
+
+function arrayGroupByField(list=[], field) {
+	const obj = {}
+	list.forEach(item => {
+		obj[item[field]] = list.filter(el => el[field] === item[field]);
+	})
+	return obj;
+}
+
+
+export function arrayGroupByYearAndMonth(list= []){
+	list.sort((a,b) => a.year - b.year);	
+	
+	const yearObj = arrayGroupByField(list, "year");
+	const finalData = {};
+	Object.keys(yearObj).forEach(year => {
+		finalData[year] = arrayGroupByField(yearObj[year], "month")
+	})
+	return (finalData);
+}
+
+
+export function greetUser(){
+    const time = new Date().toLocaleTimeString();
+    return time;
+}

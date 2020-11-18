@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {Link} from 'react-router-dom';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
 import Brand from '../Nav/brand';
@@ -12,6 +11,7 @@ import stats from '../../assets/stats.svg';
 import calculate from '../../assets/calculate.svg';
 import CrudTab from '../crudTab';
 import {LoginContext} from '../../contexts/LoginContext'
+import { logout } from '../../controls/online';
 
 const Dashboard = (props) => {
     // get the list for Crud Tab from props
@@ -67,13 +67,13 @@ const Dashboard = (props) => {
                     </button>
                 </li>
                 <li>
-                    <Link to="/logout">
+                    <button onClick={logout}>
                     <img
                         className="aside-link-icon" 
                         src={exit} 
                         alt="sign out"/>
                         sign out
-                    </Link>
+                    </button>
                 </li>
             </ul>
             <footer className="aside-footer">
@@ -84,7 +84,7 @@ const Dashboard = (props) => {
             <div className="container">
                 {currentTab === 1 && <CrudTab />}
                 {currentTab === 2 && <Calculator />}
-                {currentTab === 3 && <History />}
+                {currentTab === 3 && <History user = {user.displayName} />}
             </div>
         </main>
         </div>

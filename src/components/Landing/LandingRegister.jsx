@@ -8,11 +8,11 @@ import {LoginContext} from '../../contexts/LoginContext';
 const Landing = (props) => {
     const {user} = useContext(LoginContext);
 
-    // useEffect(()=> {
-    //     if (user){
-    //         props.history.push("/dashboard");
-    //     }
-    // }, [user, props.history])
+    useEffect(()=> {
+        if (user){
+            props.history.push("/dashboard");
+        }
+    }, [user, props.history])
 
     return (
         <>
