@@ -3,6 +3,7 @@ import {getCurrentMonth, getCurrentYear} from '../../utils';
 import TaskModal from '../TaskModal'
 import {v4 as uuid} from 'uuid'
 import Transaction from '../Transaction';
+import Loader from '../Loader'
 import {Link} from 'react-router-dom'
 import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
 import {addTransaction , getCurrentMonthTnxByUser, deleteTnx, editTnx} from '../../controls/online'
@@ -11,6 +12,7 @@ import './index.css';
 
 const CrudTab = (props) => {
     const {initialIncomes, initialExpenses, demoMode=false} = props;
+    const [isLoading, setLoading] = useState(true);
     const [existingData, setExistingData] = useState(null);
     const [incomes, setIncomes] = useState(initialIncomes || [])
     const [expenses, setExpenses] = useState(initialExpenses || []);
@@ -38,7 +40,10 @@ const CrudTab = (props) => {
 
     function retrieveData() {
         getCurrentMonthTnxByUser()
-            .then(data => setEntries(() => [...data]))
+            .then(data => {
+                setEntries(() => [...data])
+                setLoading(false);
+            })
     }
 
     function operation(id, operation){
@@ -99,7 +104,7 @@ const CrudTab = (props) => {
     }, [expenses])
 
 
-    return (
+    return isLoading ? <Loader /> : (
         <>
         <section className="crud-box">
             <header className="crud-header">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {getAllTnxByUser} from '../../controls/online';
 import {arrayGroupByYearAndMonth} from '../../utils'
 import ListView from '../ListView';
@@ -20,6 +20,7 @@ const History = (props) => {
     const [oldestExpense, setOldestExpense] = useState(0);
     const [latestIncome, setLatestIncome] = useState(0); 
     const [latestExpense, setLatestExpense] = useState(0);
+    const [tableData, setTable] = useState({});
     
     const [monthly, setMonthly] = useState(null);
 
@@ -38,7 +39,6 @@ const History = (props) => {
             const incomes = transactions.filter(el => el.type==="inc")
             const expenses = transactions.filter(el => el.type==="exp")
             
-            // let group = arrayGroupByYear(data);
             setMonthly(() => arrayGroupByYearAndMonth(transactions));
             // Object.keys(group).forEach(year => {
             //     console.log(`Year : ${year}`);
@@ -59,10 +59,20 @@ const History = (props) => {
                 setLowestIncome([...incomes].sort((a,b) => Number(a.amount) - Number(b.amount))[0])
                 setHighestExpense([...expenses].sort((b,a) => Number(a.amount) - Number(b.amount))[0])
                 setHighestIncome([...incomes].sort((b,a) => Number(a.amount) - Number(b.amount))[0])
+                setTable(() => ({
+                    averageIncome, 
+                    averageExpense, 
+                    lowestIncome,  
+                    lowestExpense,                     
+                    highestIncome, 
+                    highestExpense, 
+                    oldestIncome,                     oldestExpense,                     latestIncome,                     
+                    latestExpense
+                }))
             }
             catch(err) { }
         }
-    }, [transactions])
+    }, [transactions, averageExpense, averageIncome, latestExpense, latestIncome, lowestExpense, lowestIncome, oldestExpense, oldestIncome, highestExpense, highestIncome])
 
 return isLoading ? <Loader /> : (
     <>
@@ -102,6 +112,7 @@ return isLoading ? <Loader /> : (
                 <h1>
                     Detail report 
                 </h1>
+                {console.log(tableData)}
             </div>
         </section>
     </header>
