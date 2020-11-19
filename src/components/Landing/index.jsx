@@ -1,20 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext} from 'react'
 import Brand from '../Nav/brand'
 import Login from './Login'
 import Footer from '../Footer'
-import { Link } from 'react-router-dom'
+import { Link , Redirect } from 'react-router-dom'
 import { LoginContext } from '../../contexts/LoginContext'
 
 const Landing = (props) => {
     const {user} = useContext(LoginContext)
+
     
-    useEffect(()=> {
-        if(user){
-            props.history.push("/dashboard")
-        }
-    }, [user])
-    
-    return (
+    return user ? <Redirect to="/dashboard" /> : (
         <>
         <header className="landing-header">
             <Link to="/">

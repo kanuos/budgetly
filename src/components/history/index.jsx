@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import {getAllTnxByUser} from '../../controls/online';
 import {arrayGroupByYearAndMonth} from '../../utils'
 import ListView from '../ListView';
+import MonthCard from '../MonthView';
 import Loader from '../Loader'
 import './index.css'
+import calendar from '../../assets/month.svg'
+import list from '../../assets/list.svg'
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -21,6 +24,8 @@ const History = (props) => {
     const [latestIncome, setLatestIncome] = useState(0); 
     const [latestExpense, setLatestExpense] = useState(0);
     const [tableData, setTable] = useState({});
+
+    const [currentView, setCurrentView] = useState(1);
     
     const [monthly, setMonthly] = useState(null);
 
@@ -40,10 +45,7 @@ const History = (props) => {
             const expenses = transactions.filter(el => el.type==="exp")
             
             setMonthly(() => arrayGroupByYearAndMonth(transactions));
-            // Object.keys(group).forEach(year => {
-            //     console.log(`Year : ${year}`);
-            //     console.log(group[year]);
-            // })
+        
             const exps = expenses.reduce((acc, cur) => acc + Number(cur.amount),0)
             const incs = incomes.reduce((acc, cur) => acc + Number(cur.amount),0)
             setTotalExpense(() => exps)
@@ -112,20 +114,47 @@ return isLoading ? <Loader /> : (
                 <h1>
                     Detail report 
                 </h1>
-                {console.log(tableData)}
             </div>
         </section>
     </header>
-    <section className="transaction-container">
-        {Object.keys(monthly).map(year => {
-        return <ListView 
-                key = {year} 
-                year = {year} 
-                transactions = {monthly[year]} />
-            // console.log(`Year : ${year}`);
-            // console.log(group[year]);
-            })}
-    </section>
+    <article className="profile-body">
+        <h2>
+            Transactions
+        </h2>
+        <ul className="tab-view">
+            <li onClick={() => setCurrentView(1)}>
+                <img
+                    className = {currentView === 1 ? "active" : ""} 
+                    src={list} 
+                    alt="transactions list"/>
+            </li>
+            <li onClick={() => setCurrentView(2)}>
+                <img 
+                    className = {currentView === 2 ? "active" : ""} 
+                    src={calendar} 
+                    alt="montly transactions"/>
+            </li>
+        </ul>
+        
+        {currentView === 1 ? 
+            <section className="transaction-container">
+            {Object.keys(monthly).map(year => {
+            return <ListView 
+                    key = {year} 
+                    year = {year} 
+                    transactions = {monthly[year]} />
+                })}
+        </section>
+           : <section className="month-card-container">
+            {Object.keys(monthly).map(year => {
+            return <MonthCard 
+                    key = {year}  
+                    year = {year}
+                    transactions = {monthly[year]} />
+                })}
+        </section>
+        }
+    </article>
     </>
 
 )}

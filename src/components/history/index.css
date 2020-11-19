@@ -55,10 +55,62 @@
 .profile-header > .profile-dossier > .container > h2:last-of-type > span:last-of-type {
     color: var(--expense);
 }
-.transacton-container {
-    padding-bottom: 4rem;
+.transaction-container {
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
 }
-
+.month-card-container {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+}
+.profile-body {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.profile-body > h2 {
+    margin: 2rem auto;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    width: max-content;
+    font-family: "Righteous", cursive;
+    border-bottom: .4rem solid var(--income);
+}
+.profile-body > .tab-view {
+    max-width: 50rem;
+    display: flex;
+    list-style: none;
+}
+.profile-body > .tab-view > li {
+    flex-basis: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-body > .tab-view > li > img {
+    display: block;
+    height: 2rem;
+    width: 2rem;
+    margin: 0 .5rem;
+    filter: opacity(.35);
+    cursor: pointer;
+}
+.profile-body > .tab-view > li:first-of-type > img {
+    height: 1.75rem;
+    width: 1.75rem;
+    transition: all .4s ease;
+}
+.profile-body > .tab-view > li > img.active {
+    filter: opacity(1);
+}
 @media (min-width: 900px) {
     .profile-header {
         min-height: 50vh;

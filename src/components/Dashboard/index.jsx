@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import FooterContent from '../Footer/content';
 import Nav from '../Nav';
 import Brand from '../Nav/brand';
@@ -26,12 +26,6 @@ const Dashboard = (props) => {
             default: setTab(() => 1);
         }
     }
-
-    useEffect(()=> {
-        if(!user) {
-            props.history.push("/");
-        }
-    }, []);
 
     return (
         <div className="dashboard-wrapper">

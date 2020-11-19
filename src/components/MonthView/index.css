@@ -1,0 +1,94 @@
+.month-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30rem;
+    height: 30rem;
+    border-radius: .5rem;
+    margin: 1rem auto;
+    box-shadow: 0 1px 1rem var(--primary-light-hover);
+}
+
+
+.month-card, .month-card > *, .month-card > * > *, .month-card > * > * > * {
+    transition: all .4s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+.month-card.card-exp {
+    background-image: radial-gradient(
+         var(--expense-light), var(--expense), var(--expense-dark)
+        );
+}
+
+.month-card.card-inc {
+    background-image: radial-gradient(
+         var(--income-light), var(--income), var(--income-dark)
+        );
+}
+
+.month-card > h1 {
+    font-size: 3rem;
+    font-family: "Righteous", cursive;
+    text-transform: uppercase;
+}
+
+.month-card > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.month-card > ul > li {
+    padding: .5rem 2rem;
+    margin: .5rem 0;
+    background-color: var(--lightest);
+    text-transform: uppercase;
+    border-radius: .25rem;
+}
+.month-card > * > .inactive {
+    font-size: 1.25rem;
+}
+
+.month-card > * > .active {
+    filter: drop-shadow(0 1px 1rem var(--primary-dark));
+    font-size: 1.75rem;
+    font-weight: bolder;
+}
+.month-card > * > .income {
+    color: var(--income-dark);
+}
+.month-card > * > .expense {
+    color: var(--expense-dark);
+}
+
+.month-card > button {
+    display: block;
+    max-width: max-content;
+    margin: 1rem auto;
+    outline: none;
+    border: none;
+    padding: .5rem 2rem;
+    background-color: var(--primary-dark-hover);
+    color: var(--primary-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+@media (min-width: 800px){
+    .month-card > button:hover {
+        color: var(--lightest);
+        transform: scale(1.02);
+        box-shadow: 0 1px 1rem var(--primary-dark-hover);
+    }    
+    .month-card > button:active {
+        transform: scale(.98);
+        box-shadow: 0 1px .25rem var(--primary-dark);
+    }    
+    .month-card:hover {
+        transform: scale(1.05);
+    }
+}

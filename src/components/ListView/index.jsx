@@ -43,8 +43,7 @@ const ListView = (props) => {
                 </tbody>
             })}
     </table>
-      <button>+</button>
-        </article>
+      </article>
     )
 }
 

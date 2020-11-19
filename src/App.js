@@ -7,10 +7,13 @@ import Dashboard from './components/Dashboard'
 import LandingRegister from './components/Landing/LandingRegister';
 
 function App() {
+  const {user} = useContext(LoginContext);
   return (
     <Switch>
       <LoginContextProvider>
-        <Route exact path="/" component={Landing}/>
+        <Route exact path="/" render = {() => {
+          return user ? <Dashboard /> : <Landing />
+        }}/>
         <Route path="/register" component={LandingRegister}/>
         <ProtectedRoute path="/dashboard" component = {Dashboard} />
         <Route path="/demo" component = {Demo} />
