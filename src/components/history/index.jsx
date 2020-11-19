@@ -122,13 +122,13 @@ return isLoading ? <Loader /> : (
             Transactions
         </h2>
         <ul className="tab-view">
-            <li onClick={() => setCurrentView(1)}>
+            <li onClick={() => setCurrentView(1)} title="transaction view">
                 <img
                     className = {currentView === 1 ? "active" : ""} 
                     src={list} 
                     alt="transactions list"/>
             </li>
-            <li onClick={() => setCurrentView(2)}>
+            <li onClick={() => setCurrentView(2)} title="month view">
                 <img 
                     className = {currentView === 2 ? "active" : ""} 
                     src={calendar} 

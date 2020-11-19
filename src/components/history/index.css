@@ -86,6 +86,7 @@
 .profile-body > .tab-view {
     max-width: 50rem;
     display: flex;
+    margin: .5rem auto;
     list-style: none;
 }
 .profile-body > .tab-view > li {
