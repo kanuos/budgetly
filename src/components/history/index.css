@@ -131,10 +131,12 @@
 }
 
 .show-btn {
+    width: max-content;
+    text-align: center;
     font-size: 1.5rem;
     text-transform: capitalize;
-    display: inline-block;
-    margin: 1rem auto;
+    display: block;
+    margin: 2rem auto;
     font-weight: bolder;
     color: var(--primary-light);
     text-shadow: 1px 1px var(--primary-dark);
@@ -143,4 +145,51 @@
 }
 .show-btn:hover, .show-btn:focus {
     transform: scale(1.15);
+}
+
+.graph-box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+}
+
+.graph-legend {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin-top: 2rem;
+}
+.graph-legend > li {
+    display: flex;
+    padding: 0 1rem;
+    align-items: center;
+}
+.graph-legend > li > .graph-color {
+    height: 1.5rem;
+    display: inline-block;
+    width: 2rem;
+    border-radius: 2px;
+    margin-right: .5rem;
+}
+.graph-color.inc {
+    background-color: var(--income);
+}
+.graph-color.exp {
+    background-color: var(--expense);
+}
+.graph-legend > li > strong {
+    color: var(--primary-light);
+}
+.recharts-wrapper {
+    margin: auto;
+}
+
+@media (min-width:1000px){
+    .graph-box > .graph-legend {
+        top: 10%;
+    }   
 }

@@ -8,6 +8,7 @@ import Loader from '../Loader'
 import './index.css'
 import calendar from '../../assets/month.svg'
 import list from '../../assets/list.svg'
+import {PieChart, Pie, Label} from 'recharts'
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ const History = (props) => {
     useEffect(()=> {
         getAllTnxByUser()
         .then(tns => {
+            tns = tns.map(el => ({...el, amount : Number(el.amount)}))
             setTransactions(() => [...tns])
             setLoading(false)
         })
@@ -108,6 +110,43 @@ return isLoading ? <Loader /> : (
                     </span>
                 </h2>
             </div>
+            <ul className="graph-legend">
+                    <li>
+                        <span className="graph-color inc"></span>
+                        <strong>Income</strong>
+                    </li>
+                    <li>
+                        <span className="graph-color exp"></span>
+                        <strong>Expense</strong>
+                    </li>
+                </ul>
+            {transactions.length > 0 && <div className="graph-box">
+                <PieChart width={300} height={300}>
+                    <Pie 
+                        data={transactions.filter(el => el.type === 'inc')}
+                        nameKey = "type" 
+                        dataKey="amount" cx={150} cy={150} innerRadius={50} outerRadius={90} fill={`var(--income)`} />
+                    <Pie 
+                        data={transactions.filter(el => el.type === 'exp')}
+                        nameKey = "type" 
+                        dataKey="amount" cx={150} cy={150} outerRadius={50} fill={`var(--expense)`} label/>
+                </PieChart>
+                <PieChart width={300} height={300}>
+                    <Pie 
+                        data={transactions.filter(el => el.type === 'inc')}
+                        nameKey = "type" 
+                        dataKey="amount" cx={150} cy={150} outerRadius={90} fill={`var(--income)`}
+                         />
+
+                </PieChart>
+                <PieChart width={300} height={300}>
+                    <Pie 
+                        data={transactions.filter(el => el.type === 'exp')}
+                        nameKey = "type" 
+                        dataKey="amount" cx={150} cy={150} outerRadius={90} fill={`var(--expense)`} />
+
+                </PieChart>
+            </div>}
             <span className="show-btn" onClick = {() => setShowMore(!showMore)}>
                 show {showMore ? "less" : "more"}
             </span>
