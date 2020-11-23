@@ -13,6 +13,10 @@ const Table = ({data}) => {
                  <td data-label="Description">{desc}</td>
                  <td data-label="Type">{type === "exp" ? "Expense" : "Income"}</td>
                  <td data-label="Amount">${amount}</td>
+                 <td data-label="Actions">
+                   <button>edit</button>
+                   <button>delete</button>
+                 </td>
              </tr>
             )
         })}
@@ -34,6 +38,7 @@ const ListView = (props) => {
           <th>description</th>
           <th>type</th>
           <th>amount</th>
+          <th>actions</th>
         </tr>
       </thead>
       

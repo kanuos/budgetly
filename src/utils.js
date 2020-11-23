@@ -183,3 +183,9 @@ export function greetUser(){
     const time = new Date().toLocaleTimeString();
     return time;
 }
+
+
+export function htmlDateToLocal(htmlDate) {
+    const [y,m,d] = htmlDate.split('-');
+    return new Date(`${y}-${m}-${doubleDigit(Number(d) + 1)}`).toLocaleDateString();
+}

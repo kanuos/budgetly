@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {getAllTnxByUser} from '../../controls/online';
 import {arrayGroupByYearAndMonth} from '../../utils'
 import ListView from '../ListView';
+import TableView from '../TableView';
 import MonthCard from '../MonthView';
 import Loader from '../Loader'
 import './index.css'
@@ -25,8 +26,9 @@ const History = (props) => {
     const [latestExpense, setLatestExpense] = useState(0);
     const [tableData, setTable] = useState({});
 
+
     const [currentView, setCurrentView] = useState(1);
-    
+    const [showMore, setShowMore] = useState(false);
     const [monthly, setMonthly] = useState(null);
 
     useEffect(()=> {
@@ -62,14 +64,10 @@ const History = (props) => {
                 setHighestExpense([...expenses].sort((b,a) => Number(a.amount) - Number(b.amount))[0])
                 setHighestIncome([...incomes].sort((b,a) => Number(a.amount) - Number(b.amount))[0])
                 setTable(() => ({
-                    averageIncome, 
-                    averageExpense, 
-                    lowestIncome,  
-                    lowestExpense,                     
-                    highestIncome, 
-                    highestExpense, 
-                    oldestIncome,                     oldestExpense,                     latestIncome,                     
-                    latestExpense
+                    average : {averageIncome, averageExpense}, 
+                    lowest : {lowestIncome, lowestExpense},                     
+                    highest : {highestIncome, highestExpense}, 
+                    oldest : {oldestIncome,oldestExpense},                     latest : {latestIncome,latestExpense}
                 }))
             }
             catch(err) { }
@@ -110,10 +108,11 @@ return isLoading ? <Loader /> : (
                     </span>
                 </h2>
             </div>
-            <div className="container">
-                <h1>
-                    Detail report 
-                </h1>
+            <span className="show-btn" onClick = {() => setShowMore(!showMore)}>
+                show {showMore ? "less" : "more"}
+            </span>
+            <div className={`container table-data show-${showMore ? "more" : "less"}`}>
+                <TableView data = {tableData}/>
             </div>
         </section>
     </header>

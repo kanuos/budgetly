@@ -118,3 +118,29 @@
         background-position: bottom;
     }
 }
+
+.table-data {
+    transition: all .4s ease;
+}
+.show-less {
+    display: none;
+}
+
+.show-more {
+    display: block;
+}
+
+.show-btn {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    display: inline-block;
+    margin: 1rem auto;
+    font-weight: bolder;
+    color: var(--primary-light);
+    text-shadow: 1px 1px var(--primary-dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.show-btn:hover, .show-btn:focus {
+    transform: scale(1.15);
+}

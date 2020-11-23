@@ -1,0 +1,56 @@
+.report-table {
+    background-color: var(--primary-light);
+    width: 100%;
+    margin: 1rem auto;
+    border-radius: .25rem;
+    overflow: hidden;
+    box-shadow: 0 1px .5rem var(--primary-dark-hover);
+}
+.report-table > legend {
+    background-color: var(--primary-dark-hover);
+    text-align: center;
+    color: var(--primary-light);
+    padding: 1rem;
+    text-transform: uppercase;
+    font-family: "Righteous", cursive;
+}
+dt {
+    padding: .75rem .5rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+dd {
+    display: block;
+    margin: 0 1rem;
+    font-size: 1.25rem;
+}
+dd:last-of-type {
+    padding-bottom: 1rem;
+}
+
+dd.income, dd.income > * > * {
+    font-weight: bold;
+    color: var(--income-dark);
+}
+dd.expense, dd.expense > * > * {
+    font-weight: bold;
+    color: var(--expense-dark);
+}
+ul.list-string {
+    width: 100%;
+    display: flex;
+    list-style: none;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.list-string > li {
+    flex-basis: 25%;
+}
+.list-string > li:nth-child(2) {
+    text-align: left;
+    flex-basis: 45%;
+    text-transform: capitalize;
+}
+.list-string > li:nth-child(3) {
+    text-align: right;
+}
