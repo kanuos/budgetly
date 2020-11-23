@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css'
 
 const Card = (props) => {
-    const {year, tnx, month} = props;
+    const {year, tnx, month, getData} = props;
     let totalExp = 0, totalInc = 0;
     let incomeGtExpense ;
     tnx.forEach(item => {
@@ -45,17 +45,18 @@ const Card = (props) => {
                     </span>
                 </li>
             </ul>
-            <button>
+            <button onClick={() => getData({year, tnx, month})}>
                 Read More
             </button>
         </article>
     )
 }
 
-const MonthCard = ({transactions, year}) => {
+const MonthCard = ({transactions, year, getData}) => {
     return <>
     {Object.keys(transactions).map((month,i) => {
     return <Card 
+                getData = {getData}
                 key={i} 
                 month = {month}
                 tnx = {transactions[month]}

@@ -1,4 +1,6 @@
 import React from 'react'
+import edit from '../../assets/edit.svg'
+import remove from '../../assets/delete.svg'
 import './index.css'
 
 const Table = ({data}) => {
@@ -14,8 +16,12 @@ const Table = ({data}) => {
                  <td data-label="Type">{type === "exp" ? "Expense" : "Income"}</td>
                  <td data-label="Amount">${amount}</td>
                  <td data-label="Actions">
-                   <button>edit</button>
-                   <button>delete</button>
+                   <button>
+                     <img src={edit} alt=""/>
+                   </button>
+                   <button>
+                     <img src={remove} alt=""/>
+                   </button>
                  </td>
              </tr>
             )

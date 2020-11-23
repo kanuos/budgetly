@@ -8,7 +8,7 @@ import Loader from '../Loader'
 import './index.css'
 import calendar from '../../assets/month.svg'
 import list from '../../assets/list.svg'
-import {PieChart, Pie, Label} from 'recharts'
+import {PieChart, Pie } from 'recharts'
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ const History = (props) => {
     const [tableData, setTable] = useState({});
 
 
-    const [currentView, setCurrentView] = useState(1);
+    const [currentView, setCurrentView] = useState(2);
     const [showMore, setShowMore] = useState(false);
     const [monthly, setMonthly] = useState(null);
 
@@ -186,6 +186,7 @@ return isLoading ? <Loader /> : (
            : <section className="month-card-container">
             {Object.keys(monthly).map(year => {
             return <MonthCard 
+                    getData = {data => console.log("parent hitory", data)}
                     key = {year}  
                     year = {year}
                     transactions = {monthly[year]} />

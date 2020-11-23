@@ -57,6 +57,18 @@ table {
     content: attr(data-label);
     left: 0;
   }
+  tbody > tr > td > button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: .5rem;
+  }
+  tbody > tr > td > button > img {
+    display: block;
+    height: 1.75rem;
+    width: 1.75rem;
+    object-fit: cover;
+  }
   @media (min-width: 800px) {
     table {
       width: 100%;
