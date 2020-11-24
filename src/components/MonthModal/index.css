@@ -1,9 +1,42 @@
 .month-modal {
-    position: absolute;
-    top: -50%;
+    position: fixed;
+    top: 0%;
     z-index: 500;
     left: 0;
     width: 100vw;
+    min-height: 100vh;
+    background-color: var(--lightest);
+    transform-origin: center;
+    overflow-y: auto;
+}
+.month-modal.show {
+    transform: scale(1);
+}
+.month-modal.hide {
+    transform: scale(0);
+}
+/* Track */
+.month-modal::-webkit-scrollbar-track {
+background: var(--primary-light);
+}
+
+/* Handle */
+.month-modal::-webkit-scrollbar-thumb {
+background: var(--primary-light-hover);
+height: 1rem;
+}
+
+/* Handle on hover */
+.month-modal::-webkit-scrollbar-thumb:hover {
+background: var(--primary-dark-hover);
+}
+.analytics-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.crud-box {
     height: 100vh;
-    background-color: red;
 }

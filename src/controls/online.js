@@ -72,7 +72,7 @@ export async function getAllTnxByUser() {
             transactions.push(el.data())
         })
         
-        return transactions;
+        return transactions.sort((a,b) => a.stamp - b.stamp);
     }
     catch(err){
         return transactions;

@@ -9,6 +9,7 @@ import './index.css'
 import calendar from '../../assets/month.svg'
 import list from '../../assets/list.svg'
 import {PieChart, Pie } from 'recharts'
+import MonthModal from '../MonthModal';
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -31,6 +32,8 @@ const History = (props) => {
     const [currentView, setCurrentView] = useState(2);
     const [showMore, setShowMore] = useState(false);
     const [monthly, setMonthly] = useState(null);
+    const [openModal, toggleModal] = useState(false);
+    const [modalData, setModalData] = useState(null)
 
     useEffect(()=> {
         getAllTnxByUser()
@@ -76,8 +79,23 @@ const History = (props) => {
         }
     }, [transactions, averageExpense, averageIncome, latestExpense, latestIncome, lowestExpense, lowestIncome, oldestExpense, oldestIncome, highestExpense, highestIncome])
 
+    function openModalWithData(data){
+        toggleModal(() => !openModal);
+        setModalData(() => data)
+    }
+
+    function closeModal(){
+        toggleModal(false);
+        setModalData(null);
+    }
+
+
 return isLoading ? <Loader /> : (
     <>
+    {modalData && <MonthModal 
+        show = {openModal} 
+        data = {modalData} 
+        close = {closeModal}/>}
     <header className="profile-header">
         <h1>
             hi {props.user}, 
@@ -186,7 +204,7 @@ return isLoading ? <Loader /> : (
            : <section className="month-card-container">
             {Object.keys(monthly).map(year => {
             return <MonthCard 
-                    getData = {data => console.log("parent hitory", data)}
+                    getData = {data => openModalWithData(data)}
                     key = {year}  
                     year = {year}
                     transactions = {monthly[year]} />
