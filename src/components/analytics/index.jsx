@@ -12,7 +12,7 @@ const Analytics = ({data, type="inc"}) => {
     return (
         <div style={styleObj}>
         <AreaChart
-            width={450}
+            width={350}
             height={200}
             margin = {{top: 20, bottom : 10}}
             data={data.map(el => ({...el, amount : Number(el.amount)}))}

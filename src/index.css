@@ -10,7 +10,7 @@
     --primary-light: rgb(250, 242, 242);
     --primary-light-hover: rgb(187, 187, 187);
     --white-opaque-tint : 
-        linear-gradient(35deg, rgba(255,255,255,.75), rgba(255,255,255,.65));
+        linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9));
     --dark-tint : rgba(0,0,0,.75);
     --lightest : white;
     }

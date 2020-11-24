@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Brand from '../Nav/brand'
 import './index.css'
-import {compoundInterest, simpleInterest, investmentPlan} from '../../utils'
+import {getAllTnxByUser} from '../../controls/online';
+import {compoundInterest, simpleInterest, investmentPlan, arrayGroupByYearAndMonth } from '../../utils'
 
 const helper = {
     investment: {
@@ -30,8 +31,8 @@ const helper = {
 
 
 const Calculator = () => {
-    const [investment, setInvestment] = useState("");
-    const [contribution, setContribution] = useState("");
+    const [investment, setInvestment] = useState(0);
+    const [contribution, setContribution] = useState(0);
     const [contributionFrequency, setContributionFrequency] = useState("month");
     const [roi, setRoi] = useState("");
     const [period, setPeriod] = useState("");
@@ -51,22 +52,22 @@ const Calculator = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (investment.length === 0){
+        if (Number(investment) === 0){
             setInvestmentHelper(() => helper.investment.error)
             setInvestmentError(() => true)
             return;
         }
-        if (contribution.length === 0){
+        if (Number(contribution) === 0){
             setContributionHelper(() => helper.contribution.error)
             setContributionError(() => true)
             return;
         }
-        if (period.length === 0){
+        if (Number(period) === 0){
             setPeriodHelper(() => helper.period.error)
             setPeriodError(() => true)
             return;
         }
-        if (roi.length === 0){
+        if (Number(roi) === 0){
             setRoiHelper(() => helper.roi.error)
             setRoiError(() => true)
             return;
@@ -78,6 +79,34 @@ const Calculator = () => {
         setSInterest(simpleInterest(investment,roi, period));
         setFuture(investmentPlan(investment,roi,period,frequency,contribution, contributionFrequency))
     }
+
+    useEffect(()=> {
+        getAllTnxByUser()
+            .then(data => {
+                const monthObj = arrayGroupByYearAndMonth(data)
+                let totalMonths =0; 
+                Object.keys(monthObj).forEach(yr => {
+                    totalMonths += Object.keys(monthObj[yr]).length;
+                });
+                let incs = 0, exps = 0;
+                data.forEach(datum => {
+                    switch(datum.type){
+                        case "inc":
+                            incs += Number(datum.amount)
+                            break
+                        default:
+                            exps += Number(datum.amount)
+                    }
+                })
+                if (incs >= exps){
+                    setInvestment(() => incs = exps)
+                    setContribution(() => Math.round((incs = exps)/totalMonths))
+                }
+            })
+            .catch()
+    }, [])
+
+
 
     useEffect(()=> {
         let popup = setTimeout(function(){
@@ -115,13 +144,13 @@ const Calculator = () => {
     return (
     <>
     <article className="calculator-box">
-        <header className="calculator-header">
-            <Brand />
-            <strong>
-                Investment Calculator
-            </strong>
-        </header>
         <section className="calculator-form-box">
+            <header className="calculator-header">
+                <Brand />
+                <strong>
+                    Investment Calculator
+                </strong>
+            </header>
             <form 
                 onSubmit = {handleSubmit}
                 className={`calculator-form ${result ? "smaller":"regular"}`}>
@@ -129,11 +158,10 @@ const Calculator = () => {
                     <input 
                         type="number" 
                         min="0"
-                        step="500"
                         value = {investment}
                         onChange = {e => setInvestment(e.target.value)}
                         className="form-input"/>
-                    <label className={investment.length > 0 ? "current-label" : ""}>
+                    <label className={investment > 0 ? "current-label" : ""}>
                         Initial Investment
                     </label>
                     <span className={investmentError ? "helper error" : "helper"}>
@@ -143,12 +171,11 @@ const Calculator = () => {
                 <div className={contributionError ? "error form-group" : "form-group"}>
                     <input 
                         min="100"
-                        step="100"
                         type="number" 
                         value = {contribution}
                         onChange = {e => setContribution(e.target.value)}
                         className="form-input"/>
-                    <label className={contribution.length > 0 ? "current-label":""}>
+                    <label className={contribution > 0 ? "current-label":""}>
                         contribution
                     </label>
                     <span className={contributionError ? "helper error" : "helper"}>
@@ -223,7 +250,12 @@ const Calculator = () => {
                 </div>
             </form>
         </section>
-        <section className={`calculator-result ${!result ? "smaller" : "regular"}`}>
+        <section 
+        className={`calculator-result ${!result ? "smaller" : "regular"}`}
+        >
+            <h2>
+                your results
+            </h2>    
             <ul>
                 <li>
                     <span>
@@ -263,6 +295,14 @@ const Calculator = () => {
                     </span>
                     <span>
                         {roi}%
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        total contribution
+                    </span>
+                    <span>
+                        {contribution * contributionFrequency * period}
                     </span>
                 </li>
             </ul>

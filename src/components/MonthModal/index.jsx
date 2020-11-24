@@ -16,38 +16,36 @@ const MonthModal = ({data, close, show}) => {
     }, []);
 
     return (
-        <section className={`month-modal ${show ? "show" : "hide"}`}>
-            <button
-                onClick={close} 
-                className="close-modal">&times;</button>
-            {transactions.length > 0 && 
-            <>
-            <section className="crud-box">
-                <CrudHeader 
-                    month = {data.month}
-                    year = {data.year}
-                    income = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0)}
-                    expense = {expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
-                    total = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0) - expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
-                    callbackFn = {console.log}
-                    />
-                <div className="analytics-box container">
-                    <Analytics data = {incomes} type="inc"/>
-                    <Analytics data = {expenses} type="exp"/>
-                </div>
-                <CrudList 
-                    incomes = {incomes} 
-                    expenses = {expenses} 
-                    operation = {console.log}/>
-            </section>
-            {/* <TaskModal 
-                key={editMode}
-                demoMode = {demoMode}
-                show={modalOn} 
-                getData = {getFormData}
-                initialData = {existingData}
-                toggle = {() => setModal(!modalOn)}/> */}
-            </>}
+    <section className={`month-modal ${show ? "show" : "hide"}`}>
+        <div className="modal-container">
+                <button
+                    onClick={close} 
+                    className="close-modal">&times;
+                </button>
+                {transactions.length > 0 && 
+                <>
+                <section className="crud-box">
+                    <CrudHeader 
+                        month = {data.month}
+                        year = {data.year}
+                        income = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0)}
+                        expense = {expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
+                        total = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0) - expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
+                        callbackFn = {console.log}
+                        />
+                    <section className="crud-section">
+                        <div className="analytics-box container">
+                            <Analytics data = {incomes} type="inc"/>
+                            <Analytics data = {expenses} type="exp"/>
+                        </div>
+                        <CrudList 
+                            incomes = {incomes} 
+                            expenses = {expenses} 
+                            operation = {console.log}/>
+                    </section>
+                </section>
+                </>}
+            </div>
         </section>
     )
 }

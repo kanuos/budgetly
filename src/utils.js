@@ -112,16 +112,20 @@ export const validField = (field, value, min=6) => {
     return result;
 }
 
+export function frequencyToInt(frequency){
+    switch(frequency){
+        case "month": return  12
+        case "quarter": return  4
+        case "halfYear": return  2
+        default : return  1; 
+    }
+}
+
 
 export function compoundInterest(Principal, roi, period, frequency) {
     // A = P(1 + r/n)nt
-    let r = Number(roi), p = Number(Principal), t = Number(period), n;
-    switch(frequency){
-        case "month": n = 12 ; break;
-        case "quarter": n = 4 ; break;
-        case "halfYear": n = 2 ; break;
-        default : n = 1; 
-    }
+    let r = Number(roi), p = Number(Principal), t = Number(period), n=frequencyToInt(frequency);
+    
     return p * Math.pow((1 + r/(100 * n)), (n*t));
 }
 
@@ -135,13 +139,8 @@ export function investmentPlan(Principal, roi, period, frequency, contribution, 
     //total = CI +  PMT × {[(1 + r/n)(nt) - 1] / (r/n)} × (1+r/n)
     contribution = Number(contribution);
     let P = Number(Principal), t = Number(period), r = Number(roi) / 100, pmt = Number(contribution);
-    let n;
-    switch(frequency){
-        case "month": n = 12 ; break;
-        case "quarter": n = 4 ; break;
-        case "halfYear": n = 2 ; break;
-        default : n = 1; 
-    }
+    let n = frequencyToInt(frequency);
+
     switch(contributionFrequency){
         case "month": n = 12 ; break;
         case "quarter": n = 4 ; break;

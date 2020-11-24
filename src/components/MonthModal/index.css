@@ -5,9 +5,13 @@
     left: 0;
     width: 100vw;
     min-height: 100vh;
-    background-color: var(--lightest);
+    background-image: var(--white-opaque-tint);
     transform-origin: center;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s ease;
 }
 .month-modal.show {
     transform: scale(1);
@@ -15,20 +19,42 @@
 .month-modal.hide {
     transform: scale(0);
 }
-/* Track */
-.month-modal::-webkit-scrollbar-track {
-background: var(--primary-light);
+.modal-container {
+    position: relative;
+    padding: 1rem 0 1rem 1rem;
+    height: 95vh;
+    width: 90%;
+    max-width: 80rem;
+    margin: auto;
+    border-radius: .5rem;
+    overflow: hidden;
+    background-color: var(--primary-dark-hover);
 }
-
-/* Handle */
-.month-modal::-webkit-scrollbar-thumb {
-background: var(--primary-light-hover);
-height: 1rem;
+.modal-container> button {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+    padding: .5rem 1rem;
+    font-size: 2.5rem;
+    background-color: var(--primary-dark-hover);
+    color: var(--lightest);
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clip-path: circle();
+    transition: filter .3s ease;
+    cursor: pointer;
 }
-
-/* Handle on hover */
-.month-modal::-webkit-scrollbar-thumb:hover {
-background: var(--primary-dark-hover);
+.modal-container > button:hover{
+    filter: invert(100%);
+}
+.crud-box {
+    min-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 5rem;
 }
 .analytics-box {
     display: flex;
@@ -36,7 +62,20 @@ background: var(--primary-dark-hover);
     align-items: center;
     flex-wrap: wrap;
 }
+.crud-section {
+    color: var(--lightest);
+}
+.crud-section > .crud-data-box {
+    overflow: hidden;
+    height: auto;
+}
 
-.crud-box {
-    height: 100vh;
+.crud-box::-webkit-scrollbar {
+    background-color: var(--primary-light-hover);
+    width: 1rem;
+}
+.crud-box::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to top, var(--income-dark), var(--expense));
+    height: 1rem;
+    width: 1rem;
 }
