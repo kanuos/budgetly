@@ -146,8 +146,8 @@ nav {
 }
 .nav-list-close {
     position: absolute;
-    top: 5%;
-    right: 10%;
+    top: 2%;
+    right: 2%;
     background-color: transparent;
     outline: none;
     border: none;

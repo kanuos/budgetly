@@ -4,7 +4,7 @@
 .month-list > h1{
     position: relative;
     width: max-content;
-    margin: 1rem auto;
+    margin: 1.75rem auto;
     font-size: 2.5rem;
     padding-bottom: .25rem;
     font-family: "Righteous", cursive;
@@ -19,15 +19,14 @@
   left: 0;
 }
 table {
-    width: 90%;
-    max-width: 90rem;
+  width: 100%;
+  max-width: 90rem;
     margin: auto;
     min-width: 300px;
+    background-color: var(--primary-dark-hover);
   }
   th {
     padding: 0.75rem 1rem;
-    background: teal;
-    color: white;
     text-align: center;
     text-transform: capitalize;
     font-weight: lighter;
@@ -41,58 +40,79 @@ table {
     flex-direction: column;
     margin-bottom: 1rem;
   }
-  tbody > tr:nth-child(odd) {
-    background: var(--primary-light-hover);
+  tbody > tr.exp {
+    background-color: var(--expense);
   }
-  tbody > tr:nth-child(even) {
-    background: var(--lightest);
+  tbody > tr.inc {
+    background-color: var(--income);
   }
+
   tbody > tr > td {
     position: relative;
-    padding-left: 25%;
+    padding-left: 30%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     text-align: right;
+    text-transform: uppercase;
   }
   tbody > tr > td::before {
     position: absolute;
     content: attr(data-label);
+    font-family: "Righteous", cursive;
+    color: var(--lightest);
     left: 0;
   }
   tbody > tr > td > button {
     background-color: transparent;
     border: none;
     outline: none;
-    margin-left: .5rem;
+    margin-left: 1rem;
   }
   tbody > tr > td > button > img {
+    cursor: pointer;
     display: block;
     height: 1.75rem;
     width: 1.75rem;
     object-fit: cover;
+    transition: all .4s ease;
+  }
+  tbody > tr > td > button > img:hover {
+    transform: scale(1.05);
+    filter: invert(100%);
   }
   @media (min-width: 800px) {
+    table, th, td {
+      border: 0;
+    }
     table {
+      background-color: transparent;
+      border-spacing: 0 !important;
       width: 100%;
       max-width: 80rem;
       margin: auto;
       min-width: 300px;
     }
     th {
-      padding: 0.75rem 1rem;
-      background: var(--income);
-      color: white;
+      padding: 1rem;
+      background: var(--primary-dark);
+      color: var(--primary-light);
       text-align: center;
-      text-transform: capitalize;
+      text-transform: uppercase;
       font-weight: lighter;
+    }
+    th:nth-child(2) {
+      text-align: left;
     }
     thead {
       display: table-header-group;
+      border-spacing: none;
     }
     tbody > tr {
       display: table-row;
     }
     tbody > tr > td {
       position: relative;
-      text-align: left;
+      text-align: center;
       padding: 1rem;
     }
     tbody > tr > td::before {
@@ -100,10 +120,11 @@ table {
       content: none;
       left: 0;
     }
-    tbody > tr > td:nth-child(3) {
-      content: none;
-      width: 50%;
+
+    tbody > tr > td:nth-child(2) {
+      width: 35%;
       left: 0;
+      text-align: left;
     }
   }
   

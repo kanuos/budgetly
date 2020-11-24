@@ -76,15 +76,13 @@
 
 @media (min-width: 800px){
     .month-card > button:hover {
-        color: var(--lightest);
-        transform: scale(1.02);
-        box-shadow: 0 1px 1rem var(--primary-dark-hover);
+        background-color: var(--lightest);
+        color: var(--primary-dark-hover);
+        box-shadow: 0 1px .5rem var(--primary-dark-hover);
     }    
-    .month-card > button:active {
-        transform: scale(.98);
+    .month-card > button:active{
+        filter: invert(10%);
+        transform: translateY(1px) translateZ(0) scale(.98);
         box-shadow: 0 1px .25rem var(--primary-dark);
     }    
-    .month-card:hover {
-        transform: scale(1.05);
-    }
 }

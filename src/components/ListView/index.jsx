@@ -1,17 +1,19 @@
 import React from 'react'
 import edit from '../../assets/edit.svg'
 import remove from '../../assets/delete.svg'
+import {htmlDateToLocal} from '../../utils'
 import './index.css'
 
 const Table = ({data}) => {
     return (
         <>
-        {data.map((datum, index) => {
+        {data.map(datum => {
         const {type, id, date, desc, amount} = datum;
         return (
             <tr className={type} key={id}>
-                 <td data-label="ID">{index + 1}</td>
-                 <td data-label="Date">{date}</td>
+                 <td data-label="Date">
+                      {htmlDateToLocal(date) !=="Invalid Date" ? htmlDateToLocal(date) : new Date(date).toLocaleDateString()}
+                 </td>
                  <td data-label="Description">{desc}</td>
                  <td data-label="Type">{type === "exp" ? "Expense" : "Income"}</td>
                  <td data-label="Amount">${amount}</td>
@@ -39,7 +41,6 @@ const ListView = (props) => {
             <table>
       <thead>
         <tr>
-          <th>#</th>
           <th>date</th>
           <th>description</th>
           <th>type</th>
