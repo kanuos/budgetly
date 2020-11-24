@@ -17,19 +17,16 @@
     transform: translateZ(0);
 }
 .month-card.card-exp {
-    background-image: radial-gradient(
-         var(--expense-light), var(--expense), var(--expense-dark)
-        );
+    background-image: radial-gradient(var(--expense-light), var(--expense));
 }
 
 .month-card.card-inc {
     background-image: radial-gradient(
-         var(--income-light), var(--income), var(--income-dark)
-        );
+         var(--income-light), var(--income)        );
 }
 
 .month-card > h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-family: "Righteous", cursive;
     text-transform: uppercase;
 }
@@ -49,12 +46,11 @@
     border-radius: .25rem;
 }
 .month-card > * > .inactive {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
 }
 
 .month-card > * > .active {
-    filter: drop-shadow(0 1px 1rem var(--primary-dark));
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: bolder;
 }
 .month-card > * > .income {
