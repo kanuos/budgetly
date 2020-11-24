@@ -121,15 +121,18 @@
         transition: all .4s;
         margin-right: .5rem;
     }
-    .aside-link-list > li > *:hover{
+    .aside-link-list > li > *:hover,
+    .aside-link-list > li.active > *{
         letter-spacing: .35rem;
         color: var(--primary-light);
         border-left: .75rem solid currentColor;
     }
-    .aside-link-list > li > *:hover > *{
+    .aside-link-list > li > *:hover > *,
+    .aside-link-list > li.active > * > *{
         filter: invert(100%);
     }
-    .aside-link-list > li > *:hover::after{
+    .aside-link-list > li > *:hover::after,
+    .aside-link-list > li.active > *::after{
         transform: translateX(0);
     }
     .aside-footer {

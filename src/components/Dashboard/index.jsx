@@ -29,11 +29,11 @@ const Dashboard = (props) => {
 
     return (
         <div className="dashboard-wrapper">
-        <Nav tab={getTab}/>
+        <Nav tab={getTab} currentTab = {currentTab}/>
         <aside className="web-only aside-nav">
             <Brand />
             <ul className="aside-link-list">
-                <li>
+                <li className = {currentTab === 1 ? "active" : ""}>
                     <button onClick={() => setTab(1)}>
                     <img
                         className="aside-link-icon" 
@@ -42,7 +42,7 @@ const Dashboard = (props) => {
                         {user.displayName ? user.displayName : "profile"}
                     </button>
                 </li>
-                <li>
+                <li className = {currentTab === 3 ? "active" : ""}>
                     <button onClick={() => setTab(3)}>
                     <img
                         className="aside-link-icon" 
@@ -51,7 +51,7 @@ const Dashboard = (props) => {
                         history
                     </button>
                 </li>
-                <li>
+                <li className = {currentTab === 2 ? "active" : ""}>
                     <button onClick={() => setTab(2)}>
                     <img
                         className="aside-link-icon" 
@@ -60,7 +60,7 @@ const Dashboard = (props) => {
                         calculator
                     </button>
                 </li>
-                <li>
+                <li className = {currentTab === 4 ? "active" : ""}>
                     <button onClick={logout}>
                     <img
                         className="aside-link-icon" 

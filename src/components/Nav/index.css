@@ -135,13 +135,13 @@ nav {
     background-color: var(--primary-light-hover);
 }
 .nav-item:hover::before,
-.nav-item:hover::after {
+.nav-item:hover::after, .active::before, .active::after {
     width: 100%;
 }
-.nav-item:hover {
+.nav-item:hover, .active {
     color: var(--primary-light);
 }
-.nav-item:hover > img {
+.nav-item:hover > img, .active > img {
     filter: invert(100%);
 }
 .nav-list-close {

@@ -9,7 +9,7 @@ import exit from '../../assets/exit.svg';
 import {LoginContext} from '../../contexts/LoginContext'
 import {logout} from '../../controls/online'
 
-const Nav = ({tab}) => {
+const Nav = ({tab, currentTab}) => {
     const {user} = useContext(LoginContext);
 
     const [navOpen, setNav] = useState(false);
@@ -39,32 +39,36 @@ const Nav = ({tab}) => {
                     <Brand />
                 </Link>
             </li>
-                <li onClick={handleTabSelect} value="profile" className="nav-item">
+            <li onClick={handleTabSelect} value="profile" 
+                className={currentTab === 1 ? "active nav-item" : "nav-item"}>
+                <img
+                    src={profile} 
+                    alt="profile"/>
+                    {user.displayName ? user.displayName : "profile"}
+            </li>
+            <li onClick={handleTabSelect} value="history" 
+                className={currentTab === 3 ? "active nav-item" : "nav-item"}>
+                <img
+                    src={stats} 
+                    alt="history"/>
+                    history
+            </li>
+            <li onClick={handleTabSelect} value="calculator" 
+                className={currentTab === 2 ? "active nav-item" : "nav-item"}>
+                <img
+                    src={calculate} 
+                    alt="calculator"/>
+                    calculator
+            </li>
+            <li>
+                <button onClick = {logout} 
+                    className={currentTab === 4 ? "active nav-item" : "nav-item"}>
                     <img
-                        src={profile} 
-                        alt="profile"/>
-                        {user.displayName ? user.displayName : "profile"}
-                </li>
-                <li onClick={handleTabSelect} value="history" className="nav-item">
-                    <img
-                        src={stats} 
-                        alt="history"/>
-                        history
-                </li>
-                <li onClick={handleTabSelect} value="calculator" className="nav-item">
-                    <img
-                        src={calculate} 
-                        alt="calculator"/>
-                        calculator
-                </li>
-                <li>
-                    <button onClick = {logout} className="nav-item">
-                        <img
-                            src={exit} 
-                            alt="exit"/>
-                            sign out
-                    </button>
-                </li>
+                        src={exit} 
+                        alt="exit"/>
+                        sign out
+                </button>
+            </li>
         </ul> 
     </nav>
 )}
