@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Brand from '../Nav/brand'
 import './index.css'
 import {getAllTnxByUser} from '../../controls/online';
-import {compoundInterest, simpleInterest, investmentPlan, arrayGroupByYearAndMonth } from '../../utils'
+import {investmentPlan, arrayGroupByYearAndMonth } from '../../utils'
+import {XAxis, YAxis,CartesianGrid, LineChart, Line, Tooltip, ResponsiveContainer} from 'recharts'
 
 const helper = {
     investment: {
@@ -10,7 +11,7 @@ const helper = {
         error: "Initial investment is required"
     },
     contribution: {
-        regular : `This is how much your  contributions are going to be.`,
+        regular : `This is how much your yearly contributions are going to be.`,
         error: ` contributions must be at least 100.`
     },
     roi: {
@@ -33,7 +34,6 @@ const helper = {
 const Calculator = () => {
     const [investment, setInvestment] = useState(0);
     const [contribution, setContribution] = useState(0);
-    const [contributionFrequency, setContributionFrequency] = useState("month");
     const [roi, setRoi] = useState("");
     const [period, setPeriod] = useState("");
     const [frequency, setFrequency] = useState("month");
@@ -46,9 +46,11 @@ const Calculator = () => {
     const [roiError, setRoiError] = useState(false) 
     const [periodHelper, setPeriodHelper] = useState(helper.period.regular) 
     const [periodError, setPeriodError] = useState(false) 
-    const [CInterest, setCInterest] = useState(0);
-    const [SInterest, setSInterest] = useState(0);
     const [future, setFuture] = useState(0);
+    const [futureCurrentRate, setFutureCurrent] = useState(0);
+
+    const [currentContribution, setCurrentContribution] = useState(0);
+    const [currentInitalInvestment, setCurrentInitalInvestment] = useState(0);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -73,11 +75,18 @@ const Calculator = () => {
             return;
         }
         setResult(!result)
-        // A = P(1 + r/n)^nt
-        // const value =Number(investment) * Math.pow((1 + Number(roi)/N), (N * Number(period)));
-        setCInterest(compoundInterest(investment,roi,period,frequency));
-        setSInterest(simpleInterest(investment,roi, period));
-        setFuture(investmentPlan(investment,roi,period,frequency,contribution, contributionFrequency))
+        setFuture(() => investmentPlan(
+                Number(investment),
+                Number(roi),
+                Number(period),
+                frequency,
+                Number(contribution)))
+        setFutureCurrent(() => investmentPlan(
+                Number(currentInitalInvestment),
+                Number(roi),
+                Number(period),
+                frequency,
+                Number(currentContribution)))
     }
 
     useEffect(()=> {
@@ -99,14 +108,16 @@ const Calculator = () => {
                     }
                 })
                 if (incs >= exps){
-                    setInvestment(() => incs = exps)
-                    setContribution(() => Math.round((incs = exps)/totalMonths))
+                    setCurrentInitalInvestment(() => incs - exps);
+                    setCurrentContribution(() => Math.round((incs - exps) /totalMonths)* 12);
+                    
+                    setInvestment(() => incs - exps);
+                    setContribution(() => Math.round((incs - exps) /totalMonths)* 12);
+                    
                 }
             })
             .catch()
     }, [])
-
-
 
     useEffect(()=> {
         let popup = setTimeout(function(){
@@ -144,13 +155,13 @@ const Calculator = () => {
     return (
     <>
     <article className="calculator-box">
-        <section className="calculator-form-box">
-            <header className="calculator-header">
-                <Brand />
-                <strong>
-                    Investment Calculator
-                </strong>
-            </header>
+        <header className="calculator-header">
+            <Brand />
+            <strong>
+                Investment Calculator
+            </strong>
+        </header>
+        <section className={`calculator-form-box ${result ? "smaller" : "regular"}`}>
             <form 
                 onSubmit = {handleSubmit}
                 className={`calculator-form ${result ? "smaller":"regular"}`}>
@@ -176,26 +187,10 @@ const Calculator = () => {
                         onChange = {e => setContribution(e.target.value)}
                         className="form-input"/>
                     <label className={contribution > 0 ? "current-label":""}>
-                        contribution
+                        annual contribution
                     </label>
                     <span className={contributionError ? "helper error" : "helper"}>
                         {contributionHelper}
-                    </span>
-                </div>
-                <div className="form-group select">
-                    <label className="current-label">
-                        contribution frequency
-                    </label>
-                    <select 
-                        value={contributionFrequency} 
-                        onChange={e => setContributionFrequency(e.target.value)}>
-                            <option value="month">Monthly</option>
-                            <option value="quarter">Quarterly</option>
-                            <option value="halfYear">Semi Yearly</option>
-                            <option value="year">Annually</option>
-                    </select>
-                    <span className="helper">
-                        {helper.frequency.regular}
                     </span>
                 </div>
                 <div className={periodError ? "error form-group" : "form-group"}>
@@ -253,9 +248,6 @@ const Calculator = () => {
         <section 
         className={`calculator-result ${!result ? "smaller" : "regular"}`}
         >
-            <h2>
-                your results
-            </h2>    
             <ul>
                 <li>
                     <span>
@@ -266,12 +258,28 @@ const Calculator = () => {
                     </span>
                 </li>
                 <li>
+                    <small>
+                        current savings
+                    </small>
+                    <small>
+                        {currentInitalInvestment}
+                    </small>
+                </li>
+                <li>
                     <span>
-                        {contributionFrequency}ly contribution
+                        Annual contribution
                     </span>
                     <span>
                         {contribution}
                     </span>
+                </li>
+                <li>
+                    <small>
+                        your current annual contribution
+                    </small>
+                    <small>
+                        {currentContribution}
+                    </small>
                 </li>
                 <li>
                     <span>
@@ -302,16 +310,94 @@ const Calculator = () => {
                         total contribution
                     </span>
                     <span>
-                        {contribution * contributionFrequency * period}
+                        {Number(contribution * period) + Number(investment)}
                     </span>
                 </li>
+                {future.PV && <li>
+                    <span>
+                        Return on Investment 
+                    </span>
+                    <span>
+                        {future.PV.toFixed(2)}
+                    </span>
+                </li>}
+                {futureCurrentRate.PV && <li>
+                    <small>
+                        Return on Investment
+                        <br/>
+                        <sub>
+                            @ current savings rate
+                        </sub> 
+                    </small>
+                    <small>
+                        {futureCurrentRate.PV.toFixed(2)}
+                    </small>
+                </li>}
             </ul>
-            <h2>
-                Amount on CI = {CInterest.toFixed(2)} <br/>
-                Amount on SI = {SInterest + Number(investment)} <br/>
-                Investment will yeild = {future.toFixed(2)}
-            </h2>
-            <button onClick={() => setResult(!result)}>Get results</button>
+
+        {future.steps && <div className="result-graph">
+            <LineChart 
+                data={future.steps} 
+                width={350} 
+                height={350}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis />
+                <YAxis />
+                <Tooltip />
+                <Line
+                    type="monotone" 
+                    dataKey="end" 
+                    stroke="var(--income-dark)" />
+            </LineChart>
+            <LineChart 
+                data={futureCurrentRate.steps} 
+                width={350} 
+                height={350}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis />
+                <YAxis />
+                <Tooltip />
+                <Line
+                    type="monotone" 
+                    dataKey="start" 
+                    stroke="var(--expense)" />
+            </LineChart>
+        </div>}
+        {future.steps &&
+            <> 
+            <strong className="result-table-heading">
+                Investment chart
+            </strong>
+            <table className="result-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Starting Balance</th>
+                            <th>Interest</th>
+                            <th>Ending Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {future.steps.map((datum, index) => (
+                        <tr key={index}>
+                            <td data-label="Year">{index + 1}</td>
+                            <td data-label="Starting balance">{datum.start}</td>
+                            <td data-label="Interest">{datum.interest}</td>
+                            <td data-label="ending balance">{datum.end}</td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </>}
+
+            <button className="go-back-btn"
+            onClick={() => {
+                setResult(() => !result)
+                setPeriod(() => "")
+                setRoi(() => "")
+            }}>
+                Go Back   
+            </button>
         </section>
     </article>
     </>    
@@ -319,3 +405,4 @@ const Calculator = () => {
 }
 
 export default Calculator
+

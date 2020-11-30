@@ -135,25 +135,51 @@ export function simpleInterest(Principal, roi, period){
     return P * t * r / 100;
 }
 
-export function investmentPlan(Principal, roi, period, frequency, contribution, contributionFrequency){
-    //total = CI +  PMT × {[(1 + r/n)(nt) - 1] / (r/n)} × (1+r/n)
-    contribution = Number(contribution);
-    let P = Number(Principal), t = Number(period), r = Number(roi) / 100, pmt = Number(contribution);
-    let n = frequencyToInt(frequency);
+// export function investmentPlan(Principal, roi, period, frequency, contribution, contributionFrequency){
+//     //total = CI +  PMT × {[(1 + r/n)(nt) - 1] / (r/n)} × (1+r/n)
+//     contribution = Number(contribution);
+//     let P = Number(Principal), t = Number(period), r = Number(roi) / 100, pmt = Number(contribution);
+//     let n = frequencyToInt(frequency);
 
-    switch(contributionFrequency){
-        case "month": n = 12 ; break;
-        case "quarter": n = 4 ; break;
-        case "halfYear": n = 2 ; break;
-        default : n = 1; 
+//     switch(contributionFrequency){
+//         case "month": n = 12 ; break;
+//         case "quarter": n = 4 ; break;
+//         case "halfYear": n = 2 ; break;
+//         default : n = 1; 
+//     }
+//     const CI = compoundInterest(P, roi, t, n);
+//     const future = pmt * ((Math.pow((1 + r/n), (n * t)) - 1) / (r/n)) * (1 + r/n)
+//     // return future;  
+//     return CI + future;
+// }
+
+
+export function investmentPlan(PV, roi, period, compounding_frequency, contribution){
+    const frequency = {
+        "month": 12,
+        "quarter": 4,
+        "halfYear": 2,
+        "year": 1
     }
-    const CI = compoundInterest(P, roi, t, n);
-    const future = pmt * ((Math.pow((1 + r/n), (n * t)) - 1) / (r/n)) * (1 + r/n)
-    // return future;  
-    return CI + future;
+    const steps = []
+    for(let year = 0;  year < period; year++){
+        let stepData = {}
+        stepData.start = Math.round(PV);
+        for(let i = 0; i< frequency[compounding_frequency]; i++){
+            PV *= (1 + roi/frequency[compounding_frequency]/100)
+        }
+        stepData.interest = Math.round(PV) -  stepData.start;
+        PV += contribution
+        stepData.end = Math.round(PV)
+        steps.push(stepData)
+        stepData = {}
+    }
+
+    return {
+        PV, steps
+    }
+
 }
-
-
 
 // get monthly data
 
