@@ -31,7 +31,9 @@ const Dashboard = (props) => {
         <div className="dashboard-wrapper">
         <Nav tab={getTab} currentTab = {currentTab}/>
         <aside className="web-only aside-nav">
-            <Brand />
+            <div onClick={() => setTab(1)}>
+                <Brand/>
+            </div>
             <ul className="aside-link-list">
                 <li className = {currentTab === 1 ? "active" : ""}>
                     <button onClick={() => setTab(1)}>
