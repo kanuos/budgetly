@@ -3,7 +3,7 @@ import Brand from '../Nav/brand'
 import './index.css'
 import {getAllTnxByUser} from '../../controls/online';
 import {investmentPlan, arrayGroupByYearAndMonth } from '../../utils'
-import {XAxis, YAxis,CartesianGrid, LineChart, Line, Tooltip, ResponsiveContainer} from 'recharts'
+import {XAxis, YAxis,CartesianGrid, LineChart, Line, Tooltip} from 'recharts'
 
 const helper = {
     investment: {

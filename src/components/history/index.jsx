@@ -10,6 +10,7 @@ import calendar from '../../assets/month.svg'
 import list from '../../assets/list.svg'
 import {PieChart, Pie } from 'recharts'
 import MonthModal from '../MonthModal';
+import TaskModal from '../TaskModal'
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -34,6 +35,9 @@ const History = (props) => {
     const [monthly, setMonthly] = useState(null);
     const [openModal, toggleModal] = useState(false);
     const [modalData, setModalData] = useState(null)
+
+    const [crudModal, toggleCrudModal] = useState(false);
+
 
     useEffect(()=> {
         getAllTnxByUser()
@@ -96,6 +100,11 @@ return isLoading ? <Loader /> : (
         show = {openModal} 
         data = {modalData} 
         close = {closeModal}/>}
+    
+    <TaskModal 
+        show = {crudModal}
+        toggle = {() => toggleCrudModal(!crudModal)}
+        />
     <header className="profile-header">
         <h1>
             hi {props.user}, 
@@ -192,7 +201,7 @@ return isLoading ? <Loader /> : (
             </li>
         </ul>
         <div className="button-box">
-            <button className="add-btn">
+            <button className="add-btn" onClick={() => toggleCrudModal(!crudModal)}>
                 add transaction +
             </button> 
         </div>
