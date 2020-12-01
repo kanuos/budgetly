@@ -24,9 +24,16 @@ const Nav = ({tab, currentTab}) => {
 
     return (
     <nav className="mobile-only">
-        <Link to={user ? "/dashboard": "/"}>
+        {!user ? 
+            <Link to="/">
+                <Brand/>
+            </Link> : 
+            <div onClick={handleTabSelect}>
+                <Brand />
+            </div>}
+        {/* <Link to={user ? "/dashboard": "/"} onClick={handleTabSelect}>
             <Brand />
-        </Link>
+        </Link> */}
         <ul className="navbar-list">
             <li className="navbar-link-item navbar-toggler" onClick={toggleNav}>
                 &equiv;   
