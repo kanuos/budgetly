@@ -201,8 +201,8 @@ const TaskUI = (props) => {
                         className={dateErr.length > 0 ? "error-true" : ""}
                         type="date" 
                         value = {date}
-                        min={minDate}
-                        max={maxDate}
+                        min={demoMode ? today.toString() :minDate}
+                        max={demoMode ? today.toString() :maxDate}
                         onChange = {e => setDate(e.target.value)}
                         placeholder="Descrpion"/>
                         {dateErr.length > 0 && 
