@@ -8,7 +8,6 @@ import Loader from '../Loader'
 import './index.css'
 import calendar from '../../assets/month.svg'
 import list from '../../assets/list.svg'
-import {PieChart, Pie } from 'recharts'
 import MonthModal from '../MonthModal';
 import TaskModal from '../TaskModal'
 import {v4 as uuid} from 'uuid'
@@ -30,7 +29,6 @@ const History = (props) => {
     const [latestExpense, setLatestExpense] = useState(0);
     const [tableData, setTable] = useState({});
 
-
     const [currentView, setCurrentView] = useState(2);
     const [showMore, setShowMore] = useState(false);
     const [monthly, setMonthly] = useState(null);
@@ -39,7 +37,6 @@ const History = (props) => {
 
     const [crudModal, toggleCrudModal] = useState(false);
     const [editData, setEditData] = useState(null);
-
 
     useEffect(()=> {
         getAllTnxByUser()
@@ -99,7 +96,6 @@ const History = (props) => {
         if (!data.id){
             data.id = uuid()
         }
-        console.log(`History Component > Add item rcvd `, data);
         addTransaction(data)
         .then(getAllTnxByUser)
         .then(res => {
@@ -111,6 +107,10 @@ const History = (props) => {
         const affirm = window.confirm("Are you sure you want to delete this transaction? \n(Once deleted it cannot be reverted)")
         if (affirm){
             deleteTnx(id)
+            .then(getAllTnxByUser)
+            .then(res => {
+                setTransactions(() => [...res]);
+            })    
         }
     }
 
@@ -134,7 +134,6 @@ return isLoading ? <Loader /> : (
         show = {openModal} 
         data = {modalData} 
         close = {closeModal}/>}
-    {console.log("Edit data ",editData)}
     <TaskModal 
         key = {editData}
         historyMode = {true}
@@ -179,48 +178,11 @@ return isLoading ? <Loader /> : (
                     </span>
                 </h2>
             </div>
-            <ul className="graph-legend">
-                    <li>
-                        <span className="graph-color inc"></span>
-                        <strong>Income</strong>
-                    </li>
-                    <li>
-                        <span className="graph-color exp"></span>
-                        <strong>Expense</strong>
-                    </li>
-                </ul>
-            {transactions.length > 0 && <div className="graph-box">
-                <PieChart width={300} height={300}>
-                    <Pie 
-                        data={transactions.filter(el => el.type === 'inc')}
-                        nameKey = "type" 
-                        dataKey="amount" cx={150} cy={150} innerRadius={50} outerRadius={90} fill={`var(--income)`} />
-                    <Pie 
-                        data={transactions.filter(el => el.type === 'exp')}
-                        nameKey = "type" 
-                        dataKey="amount" cx={150} cy={150} outerRadius={50} fill={`var(--expense)`} label/>
-                </PieChart>
-                <PieChart width={300} height={300}>
-                    <Pie 
-                        data={transactions.filter(el => el.type === 'inc')}
-                        nameKey = "type" 
-                        dataKey="amount" cx={150} cy={150} outerRadius={90} fill={`var(--income)`}
-                         />
-
-                </PieChart>
-                <PieChart width={300} height={300}>
-                    <Pie 
-                        data={transactions.filter(el => el.type === 'exp')}
-                        nameKey = "type" 
-                        dataKey="amount" cx={150} cy={150} outerRadius={90} fill={`var(--expense)`} />
-
-                </PieChart>
-            </div>}
             <span className="show-btn" onClick = {() => setShowMore(!showMore)}>
                 show {showMore ? "less" : "more"}
             </span>
             <div className={`container table-data show-${showMore ? "more" : "less"}`}>
-                <TableView data = {tableData}/>
+            <TableView data = {tableData}/>
             </div>
         </section>
     </header>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Analytics from '../analytics';
 import CrudHeader from '../crudTab/CrudHeader'
 import CrudList from '../crudTab/CrudList'
-// import TaskModal from '../TaskModal';
 import './index.css'
 
 const MonthModal = ({data, close, show, edit, remove}) => {
@@ -14,6 +13,12 @@ const MonthModal = ({data, close, show, edit, remove}) => {
         setIncomes(() => transactions.filter(el => el.type === 'inc'));
         setExpenses(() => transactions.filter(el => el.type === 'exp'));
     }, []);
+
+    useEffect(()=> {
+        if (transactions.length === 0){
+            console.log("Month modal empty list", data.month, data.year, transactions);
+        }
+    }, [transactions])
 
     return (
     <section className={`month-modal ${show ? "show" : "hide"}`}>

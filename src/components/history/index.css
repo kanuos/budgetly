@@ -147,49 +147,18 @@
     transform: scale(1.15);
 }
 
-.graph-box {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-    margin: auto;
-    align-items: center;
-}
-
-.graph-legend {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
+.analytics-btn {
+    padding: 1rem 2rem;
     margin-top: 2rem;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: var(--lightest);
+    text-transform: capitalize;
+    font-family: "Righteous", cursive;
+    box-shadow: 0 1px .5rem var(--primary-dark);
+    transition: filter .5s ease;
 }
-.graph-legend > li {
-    display: flex;
-    padding: 0 1rem;
-    align-items: center;
-}
-.graph-legend > li > .graph-color {
-    height: 1.5rem;
-    display: inline-block;
-    width: 2rem;
-    border-radius: 2px;
-    margin-right: .5rem;
-}
-.graph-color.inc {
-    background-color: var(--income);
-}
-.graph-color.exp {
-    background-color: var(--expense);
-}
-.graph-legend > li > strong {
-    color: var(--primary-light);
-}
-.recharts-wrapper {
-    margin: auto;
-}
-
-@media (min-width:1000px){
-    .graph-box > .graph-legend {
-        top: 10%;
-    }   
+.analytics-btn:hover {
+    filter: invert(100%);
 }
