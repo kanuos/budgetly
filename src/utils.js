@@ -1,15 +1,15 @@
 export const today = {
     day : new Date().getDate(),
-    month : new Date().getUTCMonth() + 1,
-    year : new Date().getUTCFullYear(),
+    month : new Date().getMonth() + 1,
+    year : new Date().getFullYear(),
     toString(){
         return `${this.year}-${doubleDigit(this.month)}-${doubleDigit(this.day)}`;
     }
 }
 
 export const firstDayOfMonth = {
-    month : new Date().getUTCMonth() + 1,
-    year : new Date().getUTCFullYear(),
+    month : new Date().getMonth() + 1,
+    year : new Date().getFullYear(),
     toString(){
         return `${this.year}-${doubleDigit(this.month)}-01`;
     }
@@ -134,24 +134,6 @@ export function simpleInterest(Principal, roi, period){
     let P = Number(Principal), t = Number(period), r = Number(roi);
     return P * t * r / 100;
 }
-
-// export function investmentPlan(Principal, roi, period, frequency, contribution, contributionFrequency){
-//     //total = CI +  PMT × {[(1 + r/n)(nt) - 1] / (r/n)} × (1+r/n)
-//     contribution = Number(contribution);
-//     let P = Number(Principal), t = Number(period), r = Number(roi) / 100, pmt = Number(contribution);
-//     let n = frequencyToInt(frequency);
-
-//     switch(contributionFrequency){
-//         case "month": n = 12 ; break;
-//         case "quarter": n = 4 ; break;
-//         case "halfYear": n = 2 ; break;
-//         default : n = 1; 
-//     }
-//     const CI = compoundInterest(P, roi, t, n);
-//     const future = pmt * ((Math.pow((1 + r/n), (n * t)) - 1) / (r/n)) * (1 + r/n)
-//     // return future;  
-//     return CI + future;
-// }
 
 
 export function investmentPlan(PV, roi, period, compounding_frequency, contribution){

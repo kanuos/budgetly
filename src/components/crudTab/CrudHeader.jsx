@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './index.css';
 
 const CrudHeader = (props) => {
-    const {demoMode = false,month, year, income = 0, expense = 0,total=0, callbackFn} = props;
+    const {demoMode = false,month, year, income = 0, expense = 0,total=0, callbackFn, showBtn = true} = props;
     return (
         <header className="crud-header">
             {!demoMode && <h1 className="crud-title">
@@ -38,11 +38,11 @@ const CrudHeader = (props) => {
                     </span>
                 </li>
             </ul>
-            <button
+            {showBtn && <button
                 onClick = {callbackFn} 
-                className="add-task-btn mobile-only">
+                className="add-task-btn">
                 +
-            </button>
+            </button>}
         </header>
     )
 }
