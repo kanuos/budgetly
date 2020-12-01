@@ -93,6 +93,11 @@ const History = (props) => {
         setModalData(null);
     }
 
+    function getCrudData (data) {
+        console.log(`History Component rcvd `, data);
+        // detect whether data has an id property to distinguish an EDIT and ADD tnx
+        
+    }
 
 return isLoading ? <Loader /> : (
     <>
@@ -103,6 +108,7 @@ return isLoading ? <Loader /> : (
     
     <TaskModal 
         show = {crudModal}
+        getData = {getCrudData}
         toggle = {() => toggleCrudModal(!crudModal)}
         />
     <header className="profile-header">

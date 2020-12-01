@@ -4,8 +4,7 @@ import {v4 as uuid} from 'uuid'
 import Loader from '../Loader'
 import CrudHeader from './CrudHeader'
 import CrudList from './CrudList'
-import {addEntry, deleteEntry, editEntry} from '../../controls/offline'
-import {addTransaction , getCurrentMonthTnxByUser, deleteTnx, editTnx} from '../../controls/online'
+import {addTransaction , getCurrentMonthTnxByUser, deleteTnx, getItemToEdit} from '../../controls/online'
 import './index.css';
 import { getCurrentMonth, getCurrentYear } from '../../utils';
 
@@ -27,15 +26,9 @@ const CrudTab = (props) => {
         if (!edit){
             data.id = uuid();
         }
-        if (demoMode){
-            setEntries(() => addEntry(data, edit));
-            setExistingData(null);
-            setEditMode(false);
-        }
-        else {
-             edit ? addTransaction(data, edit): addTransaction(data);
-             retrieveData()
-            }
+        addTransaction(data)
+        .then(retrieveData)
+        .catch(console.log)
     }
 
     function retrieveData() {
@@ -46,35 +39,26 @@ const CrudTab = (props) => {
             })
     }
 
-    function operation(id, operation){
-        switch(operation){
-            case "remove" :
-                const confirmation = window.confirm("Item once deleted will be lost forever. Are you sure you want to delete ?");
-                if (!confirmation){
-                    return;
-                }
-                if (demoMode){
-                    setEntries(() => deleteEntry(id))
-                }
-                else {
-                    deleteTnx(id)
-                    .then(retrieveData)
-                    .catch(console.log)
-                }
-                break;
-            default : 
-                if(demoMode){
-                    const data = editEntry(id)
-                    setExistingData(() => ({...data}));
-                }
-                else {
-                    editTnx(id)
-                        .then(data => setExistingData(() => ({...data, id})))
-                        .catch(console.log)
-                }
-                setEditMode(true);
-                setModal(!modalOn);
-                break;
+    function edit(id){
+        getItemToEdit(id)
+        .then(data => {
+            setExistingData(() => ({...data, id}))
+            setEditMode(true);
+            setModal(!modalOn)
+        })
+        .catch(console.log)
+
+    }
+
+    function remove(id){
+        const confirmation = window.confirm("Item once deleted will be lost forever. Are you sure you want to delete ?");
+        if (!confirmation){
+            return;
+        }
+        else {
+            deleteTnx(id)
+            .then(retrieveData)
+            .catch(console.log)
         }
     }
 
@@ -121,7 +105,9 @@ const CrudTab = (props) => {
             <CrudList 
                 incomes = {incomes} 
                 expenses = {expenses} 
-                operation = {operation}/>
+                edit = {edit}
+                remove = {remove}
+            />
         </section>
         <TaskModal 
             key={editMode}

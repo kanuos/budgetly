@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Brand from '../Nav/brand'
 import './index.css';
-import {today, firstDayOfMonth, validMinimumLength, getCustomTimeObject} from '../../utils'
+import {today, firstDayOfMonth, lastDayOfDate, validMinimumLength, getCustomTimeObject} from '../../utils'
 
 const TaskUI = (props) => {
     const {show=false,initialData, toggle, getData, demoMode=false} = props;
@@ -17,12 +17,18 @@ const TaskUI = (props) => {
     const [dateErr, setDateErr] = useState("");
     const [descErr, setDescErr] = useState("");
 
+    const [minDate, setMinDate] = useState(firstDayOfMonth.toString())
+    const [maxDate, setMaxDate] = useState(today.toString())
+
     useEffect(()=> {
         if(initialData){
             setType(() => initialData.type);
             setAmount(() => initialData.amount);
             setDate(() => initialData.date);
             setDesc(() => initialData.desc);
+            const {last} = lastDayOfDate(initialData.date)
+            setMinDate(() => firstDayOfMonth.toString())
+            setMaxDate(() => last)
             setEditMode(true);
         }
         else {
@@ -68,12 +74,9 @@ const TaskUI = (props) => {
                     if(initialData && initialData.id) {
                         data.id = initialData.id;
                     }
-                    setType("")
-                    setAmount("")
-                    setDesc("")
-                    setDate(today.toString())
+                    // resetFields()
                     getData({...data},editMode)
-                    toggle()
+                    handleToggle()
                 }
             }
         }
@@ -193,23 +196,15 @@ const TaskUI = (props) => {
                         <label htmlFor="date">
                             date of transaction
                         </label>
-                    {!demoMode && <input 
-                            id="date"
-                            className={dateErr.length > 0 ? "error-true" : ""}
-                            type="date" 
-                            value = {date}
-                            max={today.toString()}
-                            onChange = {e => setDate(e.target.value)}
-                            placeholder="Descrpion"/>}
-                    {demoMode && <input 
-                            id="date"
-                            className={dateErr.length > 0 ? "error-true" : ""}
-                            type="date" 
-                            value = {date}
-                            min={firstDayOfMonth.toString()}
-                            max={today.toString()}
-                            onChange = {e => setDate(e.target.value)}
-                            placeholder="Descrpion"/>}
+                    <input 
+                        id="date"
+                        className={dateErr.length > 0 ? "error-true" : ""}
+                        type="date" 
+                        value = {date}
+                        min={minDate}
+                        max={maxDate}
+                        onChange = {e => setDate(e.target.value)}
+                        placeholder="Descrpion"/>
                         {dateErr.length > 0 && 
                         <span className="form-error">
                             {dateErr}

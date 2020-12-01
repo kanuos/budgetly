@@ -43,19 +43,17 @@ export function logout(){
 
 let tnx = store.collection(`transactions`);
 
-export function addTransaction(entry, edit) {
-    if (auth.currentUser){
-        entry.uid = auth.currentUser.uid;
-        if(edit){
-            tnx.doc(entry.id).update(entry)
-            .catch(err => err)
+export function addTransaction(entry) {
+    try{
+        const {uid} = entry;
+        if (!uid){
+            entry.uid = auth.currentUser.uid;
         }
-        else {
-            tnx.doc(entry.id).set(entry)
-            .catch(err => err)
-        }
+        return tnx
+        .doc(entry.id)
+        .set(entry)
     }
-    else {
+    catch(err) {
         throw Error("Not logged in")
     }
 }
@@ -99,13 +97,12 @@ export async function getCurrentMonthTnxByUser(month = getCurrentMonth(), year =
 }
 
 export async function deleteTnx(tnxID){
-    console.log(tnxID);
     return tnx
     .doc(tnxID)
     .delete()
 }
 
-export async function editTnx(tnxID){
+export async function getItemToEdit(tnxID){
     return new Promise((resolve, reject) => {
         try {
             resolve(tnx.doc(tnxID)
