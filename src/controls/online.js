@@ -45,10 +45,7 @@ let tnx = store.collection(`transactions`);
 
 export function addTransaction(entry) {
     try{
-        const {uid} = entry;
-        if (!uid){
-            entry.uid = auth.currentUser.uid;
-        }
+        entry.uid = auth.currentUser.uid;
         return tnx
         .doc(entry.id)
         .set(entry)

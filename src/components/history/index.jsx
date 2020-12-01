@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getAllTnxByUser} from '../../controls/online';
+import {addTransaction, deleteTnx, getAllTnxByUser, getItemToEdit} from '../../controls/online';
 import {arrayGroupByYearAndMonth} from '../../utils'
 import ListView from '../ListView';
 import TableView from '../TableView';
@@ -11,6 +11,7 @@ import list from '../../assets/list.svg'
 import {PieChart, Pie } from 'recharts'
 import MonthModal from '../MonthModal';
 import TaskModal from '../TaskModal'
+import {v4 as uuid} from 'uuid'
 
 const History = (props) => {
     const [isLoading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ const History = (props) => {
     const [modalData, setModalData] = useState(null)
 
     const [crudModal, toggleCrudModal] = useState(false);
+    const [editData, setEditData] = useState(null);
 
 
     useEffect(()=> {
@@ -94,16 +96,33 @@ const History = (props) => {
     }
 
     function getCrudData (data) {
+        if (!data.id){
+            data.id = uuid()
+        }
         console.log(`History Component > Add item rcvd `, data);
-        // detect whether data has an id property to distinguish an EDIT and ADD tnx
+        addTransaction(data)
+        .then(getAllTnxByUser)
+        .then(res => {
+            setTransactions(() => [...res]);
+        })
     }
 
     function deleteItem(id){
-        console.log(`History Component > Delete item with id ${id}`);
+        const affirm = window.confirm("Are you sure you want to delete this transaction? \n(Once deleted it cannot be reverted)")
+        if (affirm){
+            deleteTnx(id)
+        }
     }
 
     function editItem(id){
-        console.log(`History Component > Edit item with id ${id}`);
+        getItemToEdit(id)
+            .then(editable => {
+                setEditData(() => ({...editable}))
+                console.log(`History Component > Edit item with id ${id}`, editData);
+                console.log("Opening crud modal");
+                toggleCrudModal(!crudModal);
+            })
+            .catch(console.log)
     }
 
 
@@ -115,13 +134,18 @@ return isLoading ? <Loader /> : (
         show = {openModal} 
         data = {modalData} 
         close = {closeModal}/>}
-    
+    {console.log("Edit data ",editData)}
     <TaskModal 
+        key = {editData}
         historyMode = {true}
+        initialData = {editData}
         show = {crudModal}
         minDate = "2000-01-01"
         getData = {getCrudData}
-        toggle = {() => toggleCrudModal(!crudModal)}
+        toggle = {() => {
+            toggleCrudModal(!crudModal)
+            setEditData(() => null)
+        }}
         />
     <header className="profile-header">
         <h1>
