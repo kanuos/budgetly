@@ -5,10 +5,10 @@ import Brand from '../Nav/brand';
 import { Link } from  'react-router-dom'
 import exit from '../../assets/exit.svg';
 import add from '../../assets/new.svg';
-import CrudTab from '../crudTab';
 import Loader from '../Loader'
 import { LoginContext } from '../../contexts/LoginContext';
 import './index.css';
+import DemoTab from '../crudTab/Demo.jsx';
 
 const Demo = (props) => {
     const {user} = useContext(LoginContext);
@@ -59,7 +59,7 @@ const Demo = (props) => {
         </aside>
         <main>
             <div className="container">
-                <CrudTab demoMode = {true} />
+                <DemoTab />
             </div>
         </main>
         </div>

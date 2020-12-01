@@ -79,3 +79,7 @@
     height: 1rem;
     width: 1rem;
 }
+
+.modal-container > .crud-box > .crud-section > .crud-data-box > .crud-article >  .transaction-entry > .transaction-desc > * {
+    color: var(--lightest);
+}

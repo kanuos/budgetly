@@ -31,7 +31,7 @@ const MonthModal = ({data, close, show}) => {
                         income = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0)}
                         expense = {expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
                         total = {incomes.reduce((acc,cur) => acc + Number(cur.amount), 0) - expenses.reduce((acc,cur) => acc + Number(cur.amount), 0)}
-                        callbackFn = {console.log}
+                        showBtn = {false}
                         />
                     <section className="crud-section">
                         <div className="analytics-box container">
