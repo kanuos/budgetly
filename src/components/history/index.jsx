@@ -94,20 +94,32 @@ const History = (props) => {
     }
 
     function getCrudData (data) {
-        console.log(`History Component rcvd `, data);
+        console.log(`History Component > Add item rcvd `, data);
         // detect whether data has an id property to distinguish an EDIT and ADD tnx
-        
     }
+
+    function deleteItem(id){
+        console.log(`History Component > Delete item with id ${id}`);
+    }
+
+    function editItem(id){
+        console.log(`History Component > Edit item with id ${id}`);
+    }
+
 
 return isLoading ? <Loader /> : (
     <>
-    {modalData && <MonthModal 
+    {modalData && <MonthModal
+        edit = {editItem}
+        remove = {deleteItem} 
         show = {openModal} 
         data = {modalData} 
         close = {closeModal}/>}
     
     <TaskModal 
+        historyMode = {true}
         show = {crudModal}
+        minDate = "2000-01-01"
         getData = {getCrudData}
         toggle = {() => toggleCrudModal(!crudModal)}
         />
@@ -216,13 +228,15 @@ return isLoading ? <Loader /> : (
             {Object.keys(monthly).map(year => {
             return <ListView 
                     key = {year} 
-                    year = {year} 
+                    year = {year}
+                    edit = {editItem}
+                    remove = {deleteItem} 
                     transactions = {monthly[year]} />
                 })}
         </section>
            : <section className="month-card-container">
             {Object.keys(monthly).map(year => {
-            return <MonthCard 
+                return <MonthCard 
                     getData = {data => openModalWithData(data)}
                     key = {year}  
                     year = {year}

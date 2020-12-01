@@ -5,7 +5,7 @@ import CrudList from '../crudTab/CrudList'
 // import TaskModal from '../TaskModal';
 import './index.css'
 
-const MonthModal = ({data, close, show}) => {
+const MonthModal = ({data, close, show, edit, remove}) => {
     const [transactions, setTransactions] = useState(data.tnx || []);
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([])
@@ -40,8 +40,9 @@ const MonthModal = ({data, close, show}) => {
                         </div>
                         <CrudList 
                             incomes = {incomes} 
-                            expenses = {expenses} 
-                            operation = {console.log}/>
+                            expenses = {expenses}
+                            remove = {remove} 
+                            edit = {edit}/>
                     </section>
                 </section>
                 </>}

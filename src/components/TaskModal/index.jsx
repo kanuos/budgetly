@@ -5,7 +5,8 @@ import {today, firstDayOfMonth, lastDayOfDate, validMinimumLength, getCustomTime
 
 const TaskUI = (props) => {
     const {show=false,initialData, toggle, getData, demoMode=false} = props;
-    
+    const {historyMode = false} = props;
+
     const [editMode, setEditMode] = useState(false);
     const [type, setType] = useState("");
     const [amount, setAmount] = useState("");
@@ -17,9 +18,8 @@ const TaskUI = (props) => {
     const [dateErr, setDateErr] = useState("");
     const [descErr, setDescErr] = useState("");
 
-    const [minDate, setMinDate] = useState(firstDayOfMonth.toString())
+    const [minDate, setMinDate] = useState(props.minDate || firstDayOfMonth.toString())
     const [maxDate, setMaxDate] = useState(today.toString())
-
     useEffect(()=> {
         if(initialData){
             setType(() => initialData.type);
@@ -201,7 +201,7 @@ const TaskUI = (props) => {
                         className={dateErr.length > 0 ? "error-true" : ""}
                         type="date" 
                         value = {date}
-                        min={demoMode ? today.toString() :minDate}
+                        min={demoMode ? today.toString() :(historyMode ? null : minDate)}
                         max={demoMode ? today.toString() :maxDate}
                         onChange = {e => setDate(e.target.value)}
                         placeholder="Descrpion"/>

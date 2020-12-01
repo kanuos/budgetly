@@ -52,7 +52,7 @@ const Card = (props) => {
     )
 }
 
-const MonthCard = ({transactions, year, getData}) => {
+const MonthCard = ({transactions, year, getData, edit, remove}) => {
     return <>
     {Object.keys(transactions).map((month,i) => {
     return <Card 

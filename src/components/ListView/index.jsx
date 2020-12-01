@@ -1,10 +1,10 @@
 import React from 'react'
-import edit from '../../assets/edit.svg'
-import remove from '../../assets/delete.svg'
+import editIcon from '../../assets/edit.svg'
+import removeIcon from '../../assets/delete.svg'
 import {htmlDateToLocal} from '../../utils'
 import './index.css'
 
-const Table = ({data}) => {
+const Table = ({data, edit, remove}) => {
     return (
         <>
         {data.map(datum => {
@@ -18,11 +18,11 @@ const Table = ({data}) => {
                  <td data-label="Type">{type === "exp" ? "Expense" : "Income"}</td>
                  <td data-label="Amount">${amount}</td>
                  <td data-label="Actions">
-                   <button>
-                     <img src={edit} alt=""/>
+                   <button onClick = {() => edit(id)}>
+                     <img src={editIcon} alt=""/>
                    </button>
-                   <button>
-                     <img src={remove} alt=""/>
+                   <button onClick={() => remove(id)}>
+                     <img src={removeIcon} alt=""/>
                    </button>
                  </td>
              </tr>
@@ -34,7 +34,7 @@ const Table = ({data}) => {
 
 
 const ListView = (props) => {
-    const {year, transactions} = props;
+    const {year, transactions, edit, remove} = props;
     return (
         <article className="month-list">
             <h1>{year}</h1>
@@ -51,7 +51,11 @@ const ListView = (props) => {
       
         {Object.keys(transactions).map(month => {
         return <tbody key={month}>
-                <Table data={transactions[month]} />
+                <Table 
+                  data={transactions[month]} 
+                  edit={edit} 
+                  remove = {remove}
+                />
                 </tbody>
             })}
     </table>
