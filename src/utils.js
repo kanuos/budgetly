@@ -15,6 +15,32 @@ export const firstDayOfMonth = {
     }
 }
 
+export function lastDayOfDate(htmlDate){
+    let [yyyy,mm,dd] = htmlDate.split('-');
+    if (leapYear(Number(yyyy)) && Number(mm) === 2){
+        dd = 29;
+    }
+    else if (mm === 1 || mm === 3 || mm === 5 || mm === 7 || mm === 8 ||mm === 10 ||mm === 12){
+        dd = 31;
+    }
+    else dd = 30;
+    const last =formatHTMLDate(`${yyyy}-${mm}-${doubleDigit(dd)}`) 
+
+    return new Date(last).getTime() > Date.now() ? 
+    {last : today.toString()} : {last}
+}
+
+function leapYear(year){
+    if(year%4 === 0){
+        if (year % 100 === 0){
+            if (year % 400 === 0)
+                return true;
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
 
 export const doubleDigit = number => {
     number = Number(number);
