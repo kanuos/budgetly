@@ -206,6 +206,7 @@
     color: var(--primary-light-hover);
     text-transform: uppercase;
     transition: all .4s ease;
+    cursor: pointer;
 }
 .add-btn:hover {
     background: var(--primary-dark-hover);

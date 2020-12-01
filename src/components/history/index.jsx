@@ -191,7 +191,11 @@ return isLoading ? <Loader /> : (
                     alt="montly transactions"/>
             </li>
         </ul>
-        
+        <div className="button-box">
+            <button className="add-btn">
+                add transaction +
+            </button> 
+        </div>
         {currentView === 1 ? 
             <section className="transaction-container">
             {Object.keys(monthly).map(year => {
