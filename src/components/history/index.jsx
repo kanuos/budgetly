@@ -110,6 +110,7 @@ const History = (props) => {
             .then(getAllTnxByUser)
             .then(res => {
                 setTransactions(() => [...res]);
+                closeModal();
             })    
         }
     }
@@ -118,9 +119,8 @@ const History = (props) => {
         getItemToEdit(id)
             .then(editable => {
                 setEditData(() => ({...editable}))
-                console.log(`History Component > Edit item with id ${id}`, editData);
-                console.log("Opening crud modal");
                 toggleCrudModal(!crudModal);
+                closeModal();
             })
             .catch(console.log)
     }
