@@ -15,10 +15,10 @@ footer {
     color: var(--primary-light-hover);
 }
 strong.footer-text {
-    font-size: 1.25em;
+    font-size: 1.75em;
 }
 span.footer-text {
-    font-size: 1em;
+    font-size: 1.25em;
 }
 .footer-list {
     display: flex;
@@ -32,8 +32,8 @@ span.footer-text {
 }
 .footer-list-item > * > img {
     display: block;
-    height: 2.25rem;
-    width: 2.25rem;
+    height: 3rem;
+    width: 3rem;
     object-fit: cover;
     cursor: pointer;
     transition: all .4s ease;

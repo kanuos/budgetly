@@ -18,8 +18,9 @@
     content: '';
     z-index: -5;
     transition: all .5s ease;
-    background-image: linear-gradient(90deg, var(--income), var(--expense));
-    animation: bgChange 5s linear infinite;
+    background-image: linear-gradient(90deg, var(--income), var(--expense-light)), url(../../assets/hero.jpg);
+    background-size: cover;
+    animation: bgChange 10s ease-in infinite;
 }
 .landing-header > * > .navbar-brand {
     color: var(--primary-dark-hover);

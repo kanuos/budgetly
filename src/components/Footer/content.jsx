@@ -1,6 +1,4 @@
 import React from 'react';
-import twitter from '../../assets/t.svg';
-import facebook from '../../assets/f.svg';
 import github from '../../assets/g.svg';
 import './index.css';
 
@@ -15,18 +13,11 @@ const FooterContent = () => {
         </span>
         <ul className="footer-list">
             <li className="footer-list-item">
-                <a href="www.facebook.com">
-                    <img src={facebook} alt="Facebook"/>
-                </a>
-            </li>
-            <li className="footer-list-item">
-                <a href="www.gihub.com">
+                <a 
+                    rel="noreferrer"
+                    target="_blank" 
+                    href="https://github.com/kanuos?tab=repositories">
                     <img src={github} alt="Github"/>
-                </a>
-            </li>
-            <li className="footer-list-item">
-                <a href="www.twitter.com">
-                    <img src={twitter} alt="Twitter"/>
                 </a>
             </li>
         </ul>

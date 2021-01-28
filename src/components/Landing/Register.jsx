@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Brand from '../Nav/brand';
 import {validField} from '../../utils';
 import MiniLoader from '../Loader/miniLoader';
 import {register} from '../../controls/online'
 import './index.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { LoginContext } from '../../contexts/LoginContext';
 
-const Register = (props) => {
+const Register = () => {
+    const {user} = useContext(LoginContext)
+    const history = useHistory();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [formError, setError] = useState(false);
@@ -21,6 +24,13 @@ const Register = (props) => {
         }, 1500);
         return () => clearTimeout(popupMsg);
     }, [msg])
+
+    useEffect(() => {
+        if(user){
+            history.push("/dashboard")
+        }
+        return () => setLoading(false);
+    }, [user, history])
 
 
     async function handleSubmit(e) {
@@ -50,17 +60,17 @@ const Register = (props) => {
         .then(() => {
             setMsg("user created successfully! Login to continue")
             clearFields();
-            setTimeout(function(){
+            const p = setTimeout(function(){
                 setMsg("")
                 setError(false);
-                props.onSuccess.push("/")
+                setLoading(() => false);
             }, 2500)
+            return () => clearTimeout(p);
         })
         .catch(err =>{
             setError(true);
             setMsg(err.message);
-        })
-        .finally(() =>setLoading(false))    
+        })    
     }
 
     function clearFields(){
