@@ -5,6 +5,7 @@ import Landing from './components/Landing';
 import LoginContextProvider, {LoginContext} from './contexts/LoginContext'
 import Dashboard from './components/Dashboard'
 import LandingRegister from './components/Landing/LandingRegister';
+import ErrorPage from './components/ErrorPage'
 
 function App() {
   const {user} = useContext(LoginContext);
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" component={LandingRegister}/>
         <ProtectedRoute path="/dashboard" component = {Dashboard} />
         <Route path="/demo" component = {Demo} />
+        <Route path="*" component = {ErrorPage} />
       </LoginContextProvider>
     </Switch>
   );

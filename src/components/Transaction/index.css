@@ -15,7 +15,8 @@
 }
 .transaction-amount {
     align-self: flex-start;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin-left: 1rem;
     font-weight: bolder;
 }
 .transaction-amount.inc {
@@ -25,11 +26,11 @@
     color: var(--expense-dark);
 }
 .transaction-desc > span {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     text-transform: capitalize;
 }
 .transaction-desc > em {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 300;
     color: var(--primary-dark-hover);
     text-transform: capitalize;
@@ -80,7 +81,7 @@
 } 
 .transaction-control-box {
     position: absolute;
-    background-image: linear-gradient(35deg, var(--expense) 50%, var(--income)50%);
+    background-color: var(--primary-light-hover);
     height: 100%;
     display: flex;
     flex-direction: row-reverse;

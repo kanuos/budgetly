@@ -31,7 +31,7 @@ const History = (props) => {
 
     const [currentView, setCurrentView] = useState(2);
     const [showMore, setShowMore] = useState(false);
-    const [monthly, setMonthly] = useState(null);
+    const [monthly, setMonthly] = useState([]);
     const [openModal, toggleModal] = useState(false);
     const [modalData, setModalData] = useState(null)
 
@@ -211,7 +211,7 @@ return isLoading ? <Loader /> : (
         </div>
         {currentView === 1 ? 
             <section className="transaction-container">
-            {Object.keys(monthly).map(year => {
+            { Object.keys(monthly).map(year => {
             return <ListView 
                     key = {year} 
                     year = {year}

@@ -50,7 +50,7 @@ const Transaction = (props) => {
             </div>
         </section>
         <section className={`transaction-amount ${type}`}>
-            {amount}
+            ${Number(amount).toFixed(2)}
         </section>
         </article>
     )

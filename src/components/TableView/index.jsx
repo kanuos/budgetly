@@ -34,7 +34,7 @@ export default TableView
 
 const Item = ({data}) => {
     const {amount, desc, date} = data;
-    return <ul className="list-string">
+    return data ? <ul className="list-string">
         {date && <li>
             {htmlDateToLocal(date)}
         </li>}
@@ -44,5 +44,5 @@ const Item = ({data}) => {
         <li>
             {amount}
         </li>
-    </ul>
+    </ul> : <></>
 }

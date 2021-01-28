@@ -129,6 +129,7 @@
     max-width: 90rem;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     overflow-y: auto;
 }
@@ -181,5 +182,8 @@
     }
     .budget-li-value {
         padding-left: 6rem;
+    }
+    .crud-data-box {
+        flex-direction: row;
     }
 }

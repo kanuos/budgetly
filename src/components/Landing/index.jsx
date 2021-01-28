@@ -1,39 +1,34 @@
-import React, { useContext} from 'react'
+import React, { useContext, useEffect} from 'react'
 import Brand from '../Nav/brand'
 import Login from './Login'
 import Footer from '../Footer'
-import { Link , Redirect } from 'react-router-dom'
+import { Link , useHistory } from 'react-router-dom'
 import { LoginContext } from '../../contexts/LoginContext'
 
-const Landing = (props) => {
+const Landing = () => {
     const {user} = useContext(LoginContext)
+    const history = useHistory();
 
-    
-    return user ? <Redirect to="/dashboard" /> : (
+    useEffect(() => {
+        let isMounted = true;
+        if(user && isMounted) {
+            return () => history.push("/dashboard");
+        }
+        return () => {isMounted = false;}
+    }, [user, history])
+
+    return (
         <>
         <header className="landing-header">
             <Link to="/">
                 <Brand />
             </Link>
-            <section className="web-only landing-article-box">
-                <article className="landing-article">
-                    <h2>
-                        track your budget
-                    </h2>
-                    <img src="https://picsum.photos/536/354" alt=""/>
-                </article>
-                <article className="landing-article">
-                    <h2>
-                        plan your investments
-                    </h2>
-                    <img src="https://picsum.photos/seed/picsum/536/354" alt=""/>
-                </article>
-                <article className="landing-article">
-                    <h2>
-                        visualize your budget
-                    </h2>
-                    <img src="https://picsum.photos/id/237/536/354" alt=""/>
-                </article>
+            <section className="web-only">
+                <h2 className="landing-article">
+                    <span>
+                        your one stop budget solution
+                    </span>
+                </h2>
             </section>
             <article className="web-only demo-link-box">
                 <Link to="/demo" className="demo-link">
@@ -41,7 +36,7 @@ const Landing = (props) => {
                 </Link>
             </article>
             <div className="header-form-box">
-                <Login onSuccess = {props.history} />
+                <Login  />
                 <article className="mobile-only demo-link-box">
                     <Link to="/demo" className="demo-link">
                         try demo

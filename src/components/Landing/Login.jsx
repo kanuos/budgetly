@@ -1,24 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Brand from '../Nav/brand';
 import {validField} from '../../utils';
 import MiniLoader from '../Loader/miniLoader';
 import { logIn} from '../../controls/online'
 import './index.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { LoginContext } from '../../contexts/LoginContext';
 
-const Login = ({onSuccess}) => {
-
+const Login = () => {
+    const {user} = useContext(LoginContext);
+    const history = useHistory();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [formError, setError] = useState(false);
     const [msg, setMsg] = useState("");
     const [isLoading, setLoading] = useState(false);
 
+    useEffect(() => {
+        if(user){
+            history.push("/dashboard")
+        }
+        return () => setLoading(false);
+    }, [user, history])
+
     useEffect(()=> {
         const popupMsg = setTimeout(()=> {
             setError(false);
             setMsg("");
-        }, 1500);
+        }, 2000);
         return () => clearTimeout(popupMsg);
     }, [msg])
 
@@ -40,12 +49,13 @@ const Login = ({onSuccess}) => {
         }
         setLoading(() => true);        
         logIn(email, password)
-        .then(() => onSuccess.push("/dashboard"))
+        .then(() => {
+            setLoading(()=> false);
+        })
         .catch(err => {
             setError(true);
             setMsg(err.message);
         })
-        .finally(()=> setLoading(false))
     }
     return (
         <>

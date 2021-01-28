@@ -31,7 +31,7 @@ const DemoTab = () => {
                 setEntries(() => storedData)
             }
         }
-    }, [])
+    }, [history, user])
 
     useEffect(()=> {
         sessionStorage.setItem('budget-demo', JSON.stringify(entries))

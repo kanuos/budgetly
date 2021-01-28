@@ -98,6 +98,7 @@
         text-decoration: none;
         color: var(--primary-light-hover);
         text-transform: capitalize;
+        transform-origin: right;
         transition: all .3s ease-in-out;
         border-left: .75rem solid transparent;
     }
@@ -125,6 +126,7 @@
     .aside-link-list > li.active > *{
         letter-spacing: .35rem;
         color: var(--primary-light);
+        background-color: var(--primary-light);
         border-left: .75rem solid currentColor;
     }
     .aside-link-list > li > *:hover > *,

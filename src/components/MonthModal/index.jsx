@@ -12,11 +12,11 @@ const MonthModal = ({data, close, show, edit, remove}) => {
     useEffect(()=> {
         setIncomes(() => transactions.filter(el => el.type === 'inc'));
         setExpenses(() => transactions.filter(el => el.type === 'exp'));
-    }, []);
+    }, [transactions]);
 
     useEffect(()=> {
         if (transactions.length === 0){
-            console.log("Month modal empty list", data.month, data.year, transactions);
+            setTransactions(() => []);
         }
     }, [transactions])
 

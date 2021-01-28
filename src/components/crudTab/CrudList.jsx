@@ -23,6 +23,7 @@ const CrudList = ({incomes, expenses, edit, remove}) => {
                     desc = {desc}/>
                 )
             })}
+            {incomes.length === 0 && <span>No income entries</span>}
         </article>
         <article className="crud-article crud-expense">
             <legend className="legend-expense">
@@ -42,6 +43,7 @@ const CrudList = ({incomes, expenses, edit, remove}) => {
                     desc = {desc}/>
                 )
             })}
+            {expenses.length === 0 && <span>No expense entries</span>}
         </article>
     </div>
     )
